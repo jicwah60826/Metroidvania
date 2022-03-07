@@ -72,3 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 From <https://github.com/github/gitignore/blob/main/Unity.gitignore> 
+Assets/Audio/
