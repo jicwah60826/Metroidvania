@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D theRB;
 
+    public Animator theAnim;
+
     public float moveSpeed, jumpForce;
 
     public LayerMask whatIsGround; // Layer mask that defines WHAT the ground is
@@ -23,10 +25,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleMovement();
+        PlayerMovement();
+        PlayerAnimations();
     }
 
-    private void HandleMovement()
+    private void PlayerMovement()
     {
 
         theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
@@ -38,7 +41,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isOnGround)
         {
             theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
-            isOnGround = false;
         }
+    }
+
+    private void PlayerAnimations()
+    {
+        theAnim.SetFloat("playerSpeed", Mathf.Abs(theRB.velocity.x));
+        theAnim.SetBool("isOnGround", isOnGround);
     }
 }

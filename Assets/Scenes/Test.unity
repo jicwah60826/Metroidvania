@@ -1906,6 +1906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theRB: {fileID: 1511941387}
+  theAnim: {fileID: 1674644578}
   moveSpeed: 8
   jumpForce: 20
   whatIsGround:
@@ -1944,6 +1945,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1674644577}
   - component: {fileID: 1674644579}
+  - component: {fileID: 1674644578}
   m_Layer: 0
   m_Name: Standing Sprite
   m_TagString: Untagged
@@ -1965,6 +1967,25 @@ Transform:
   m_Father: {fileID: 1511941384}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1674644578
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674644576}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2842789212b132349989b7cf57982d35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &1674644579
 SpriteRenderer:
   m_ObjectHideFlags: 0
