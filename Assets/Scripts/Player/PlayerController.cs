@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +12,13 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed;
     public float jumpForce;
+
+    //Coyote time
+    public float hangTime = .2f;
+    public float smallJumpMult = .5f;
+    [SerializeField]
+    private float hangCounter;
+
 
     public Transform groundPoint;
     [SerializeField]
@@ -150,8 +158,17 @@ public class PlayerController : MonoBehaviour
             //checking if on the ground
             isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
+            if (isOnGround)
+            {
+                hangCounter = hangTime;
+            }
+            else 
+            {
+                hangCounter -= Time.deltaTime;
+            }
+
             // Handle Jumping
-            if (Input.GetButtonDown("Jump") && (isOnGround || (canDoubleJump && playerAbilities.canDoubleJump) || (canTripleJump && playerAbilities.canTripleJump)))
+            if (Input.GetButtonDown("Jump") && (hangCounter >0 || (canDoubleJump && playerAbilities.canDoubleJump) || (canTripleJump && playerAbilities.canTripleJump)))
             {
                 if (isOnGround)
                 {
@@ -160,6 +177,8 @@ public class PlayerController : MonoBehaviour
                     isDashing = false;
                     AudioManager.instance.PlaySFX(12); // single jump sound
                 }
+
+
                 // allow double jump
                 if (!isOnGround && canDoubleJump)
                 {
@@ -188,6 +207,17 @@ public class PlayerController : MonoBehaviour
                 }
 
                 theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+            }
+
+            // Allow small jumps
+
+            if (!isOnGround)
+            {
+                
+                if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0)
+                {
+                    theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * smallJumpMult);
+                }
             }
 
             //shooting
