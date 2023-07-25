@@ -1620,6 +1620,10 @@ MonoBehaviour:
   theAnim: {fileID: 7553627740471041032}
   shotToFire: {fileID: 1830410061, guid: ce6b1de282e477542af0902dfb632dd7, type: 3}
   shotPoint: {fileID: 7553627740639146603}
+  isJumping: 0
+  canDoubleJump: 0
+  isDoubleJumping: 0
+  canTripleJump: 0
   dashSpeed: 25
   dashTime: 0.75
   theSR: {fileID: 7553627740471041033}
@@ -1651,8 +1655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e0eac02ab94e438e78be1a8610b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDoubleJump: 1
-  canTripleJump: 1
+  canDoubleJump: 0
+  canTripleJump: 0
   canDash: 0
   canBecomeBall: 0
   canDropBomb: 0
