@@ -1592,7 +1592,7 @@ Transform:
   - {fileID: 7553627739969439906}
   - {fileID: 1290094813}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7553627739553494368
 MonoBehaviour:
@@ -1609,8 +1609,8 @@ MonoBehaviour:
   theRB: {fileID: 7553627739553494369}
   moveSpeed: 8
   jumpForce: 20
-  hangTime: 0.5
-  smallJumpMult: 0.8
+  hangTime: 0.2
+  smallJumpMult: 0.5
   hangCounter: 0
   groundPoint: {fileID: 7553627741040785667}
   isOnGround: 0
@@ -1651,8 +1651,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e0eac02ab94e438e78be1a8610b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDoubleJump: 0
-  canTripleJump: 0
+  canDoubleJump: 1
+  canTripleJump: 1
   canDash: 0
   canBecomeBall: 0
   canDropBomb: 0

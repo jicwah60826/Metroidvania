@@ -162,5 +162,5 @@ MonoBehaviour:
   unlockBecomeBall: 0
   unlockDropBomb: 0
   pickupEffect: {fileID: 9179013566323248785, guid: 71a94b9f22da15642aae56cec5565ddc, type: 3}
-  theCollider: {fileID: 0}
-  theSR: {fileID: 0}
+  theCollider: {fileID: 3488221646625580635}
+  theSR: {fileID: 9034284853783881255}

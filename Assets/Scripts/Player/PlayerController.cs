@@ -30,7 +30,15 @@ public class PlayerController : MonoBehaviour
     public BulletController shotToFire;
     public Transform shotPoint;
 
-    private bool canDoubleJump, canTripleJump;
+    [SerializeField]
+    private bool isJumping;
+    [SerializeField]
+    private bool canDoubleJump;
+    [SerializeField]
+    private bool isDoubleJumping;
+    [SerializeField]
+    private bool canTripleJump;
+
 
     public float dashSpeed, dashTime;
     private float dashCounter;
@@ -58,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
     public bool canMove;
     private bool isDashing;
-    private bool isDoubleJumping;
 
     private void Awake()
     {
@@ -99,6 +106,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // show bombs UI overlay if bombs allowed
+        if (playerAbilities.canDropBomb)
+        {
+            UIController.instance.bombText.gameObject.SetActive(true);
+        }
+
+
+
         // only do all of this if we can move and time is not paused
         if (canMove && Time.timeScale != 0)
         {
@@ -170,6 +186,8 @@ public class PlayerController : MonoBehaviour
             // Handle Jumping
             if (Input.GetButtonDown("Jump") && (hangCounter >0 || (canDoubleJump && playerAbilities.canDoubleJump) || (canTripleJump && playerAbilities.canTripleJump)))
             {
+                isJumping = true;
+
                 if (isOnGround)
                 {
                     canDoubleJump = true;
@@ -190,7 +208,8 @@ public class PlayerController : MonoBehaviour
                     AudioManager.instance.PlaySFX(13); // double jump sound
                 }
 
-                if (!isOnGround && canTripleJump)
+                // allow triple jump
+                if (!isOnGround  && isDoubleJumping)
                 {
                     canDoubleJump = false;
                     isDoubleJumping = false;

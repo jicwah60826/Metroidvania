@@ -39,6 +39,7 @@ public class UIController : MonoBehaviour
     {
         //disable text as needed
         onScreenLowerThirdText.gameObject.SetActive(false);
+        bombText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
