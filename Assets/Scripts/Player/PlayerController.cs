@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             instance = this;
             //don't destroy this object when we load scenes or re-load current
-            // DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
