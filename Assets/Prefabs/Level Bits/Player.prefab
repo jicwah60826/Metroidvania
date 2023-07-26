@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &769349202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769349203}
+  m_Layer: 9
+  m_Name: FrontCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &769349203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769349202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.61, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7553627739553494370}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1290094812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1622,7 @@ Transform:
   - {fileID: 7553627740639146603}
   - {fileID: 7553627739969439906}
   - {fileID: 1290094813}
+  - {fileID: 769349203}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1608,41 +1640,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theRB: {fileID: 7553627739553494369}
   moveSpeed: 8
-  jumpForce: 20
-  hangTime: 0.2
-  smallJumpMult: 0.5
-  hangCounter: 0
-  groundPoint: {fileID: 7553627741040785667}
-  isOnGround: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1088
-  theAnim: {fileID: 7553627740471041032}
+  ammoCount: 10
+  infinteAmmo: 0
   shotToFire: {fileID: 1830410061, guid: ce6b1de282e477542af0902dfb632dd7, type: 3}
   shotPoint: {fileID: 7553627740639146603}
+  jumpForce: 20
+  maxJumps: 3
+  jumpsLeft: 0
+  jumpCounter: 0
+  hangTime: 0.2
+  smallJumpMult: 0.2
+  hangCounter: 0
   isJumping: 0
   canDoubleJump: 0
   isDoubleJumping: 0
   canTripleJump: 0
-  dashSpeed: 25
-  dashTime: 0.75
+  groundPoint: {fileID: 7553627741040785667}
+  isOnGround: 0
+  wasOnGround: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1088
+  frontCheck: {fileID: 0}
+  isTouchingWall: 0
+  checkRadius: 0
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 0
+  dashSpeed: 20
+  dashTime: 0.8
+  dashHangAmt: 0.8
+  waitAfterDashing: 0.5
+  isDashing: 0
   theSR: {fileID: 7553627740471041033}
   afterImage: {fileID: 4624078935201887539, guid: 1f4d2bb89f932874f90f465749fd4968, type: 3}
   afterImageLifetime: 0.2
   timeBetweenAfterImages: 0.03
   afterImageColor: {r: 0.14684942, g: 0.59936804, b: 0.9433962, a: 0.6862745}
-  waitAfterDashing: 0.5
   standing: {fileID: 7553627740471041034}
   ball: {fileID: 7553627739693199438}
   waitToBall: 0.5
   ballAnim: {fileID: 7553627739693199426}
+  bombCount: 25
   bombPoint: {fileID: 7553627739969439906}
   bomb: {fileID: 6221876883012708431, guid: 168c5842f25ed83428a3e76c4d9fc884, type: 3}
-  ammoCount: 10
-  bombCount: 25
-  infinteAmmo: 0
   infiniteBombs: 0
   canMove: 0
+  theAnim: {fileID: 7553627740471041032}
 --- !u!114 &7553627739553494374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1655,13 +1699,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e0eac02ab94e438e78be1a8610b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDoubleJump: 0
-  canTripleJump: 0
-  canDash: 0
-  canBecomeBall: 0
-  canDropBomb: 0
-  dashSpeedMultiplier: 1
-  dashTimeMuliplier: 1
+  canDoubleJump: 1
+  canTripleJump: 1
+  canDash: 1
+  canBecomeBall: 1
+  canDropBomb: 1
+  dashSpeedMultiplier: 1.25
+  dashTimeMuliplier: 1.25
 --- !u!114 &7553627739553494375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,10 +1719,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeathEffect: {fileID: 4803876077173566648, guid: 32a612c5039605c4e9789f67e5ddf184, type: 3}
-  maxHealth: 10
+  maxHealth: 50
   isInvincible: 0
-  invincibilityLength: 1.5
-  flashLength: 0.05
+  invincibilityLength: 0.5
+  flashLength: 0.025
   playerSprites:
   - {fileID: 7553627740471041033}
   - {fileID: 7553627739693199436}

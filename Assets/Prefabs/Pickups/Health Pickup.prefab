@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7307302063501254894}
   - component: {fileID: 7307302063501254865}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7307302063649910917}
   - component: {fileID: 7307302063649910916}
   - component: {fileID: 7307302063649910914}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Transform:
   m_Children:
   - {fileID: 7307302063501254894}
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &7307302063649910916
 CircleCollider2D:

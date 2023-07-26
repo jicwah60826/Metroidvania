@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boss Battle Ghost.unity
     guid: 7c2ec10053b77cb4491dcd8f975ca600
+  - enabled: 1
+    path: Assets/Scenes/TestArena.unity
+    guid: 57e93cb7653bf3548b7714fca13a5d6f
+  - enabled: 1
+    path: Assets/Scenes/TestArena 1.unity
+    guid: 61d3dec552eb6004482693d5d44f00f6
   m_configObjects: {}

@@ -16,12 +16,16 @@ public class PlayerController : MonoBehaviour
     [Title("Ammo")]
     public int ammoCount;
     public bool infinteAmmo;
+    public BulletController shotToFire;
+    public Transform shotPoint;
 
     [Title("Jumping")]
     public float jumpForce;
     public int maxJumps = 3;
     [SerializeField]
     private int jumpsLeft;
+    [SerializeField]
+    private int jumpCounter;
     [SerializeField]
     public float hangTime = .2f;
     [SerializeField]
@@ -37,14 +41,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool canTripleJump;
 
+
     [Title("Ground")]
     public Transform groundPoint;
     [SerializeField]
     private bool isOnGround;
+    [SerializeField]
+    private bool wasOnGround;
     public LayerMask whatIsGround;
 
-    public BulletController shotToFire;
-    public Transform shotPoint;
+
+
+    [Title("Wall Detection")]
+    [SerializeField]
+    private Transform frontCheck;
+    [SerializeField]
+    private bool isTouchingWall;
+    [SerializeField]
+    private float checkRadius;
+    [SerializeField]
+    public LayerMask whatIsWall;
+
+
 
     [Title("Dash")]
     public float dashSpeed;
@@ -86,7 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             instance = this;
             //don't destroy this object when we load scenes or re-load current
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -103,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
         // Initialize how many jumps we can do
         jumpsLeft = maxJumps;
-        //jumpCounter = 0;
+        jumpCounter = 0;
 
         // give some ammo and bombs to start if infinite
         if (infinteAmmo)
@@ -130,6 +148,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
+        // Is touching wall check
+        isTouchingWall = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsWall);
 
         // only do all of this if we can move and time is not paused
         if (canMove && Time.timeScale != 0)
@@ -149,7 +169,7 @@ public class PlayerController : MonoBehaviour
                     dashCounter = dashTime;
 
                     isDashing = true;
-                    AudioManager.instance.PlaySFX(3); // single jump sound
+                    AudioManager.instance.PlaySFX(3); // Dash Sound
                 }
             }
 
@@ -163,6 +183,11 @@ public class PlayerController : MonoBehaviour
                 if (afterImageCounter <= 0)
                 {
                     isDashing = true;
+                }
+
+                if (isTouchingWall)
+                {
+                    isDashing = false;
                 }
 
                 dashRechargeCounter = waitAfterDashing;
@@ -192,9 +217,9 @@ public class PlayerController : MonoBehaviour
 
             if (isOnGround)
             {
-                // reset counters
+                // reset stuff
                 hangCounter = hangTime;
-                //jumpCounter = 0;
+                isDoubleJumping = false;
             }
             else 
             {
@@ -204,6 +229,11 @@ public class PlayerController : MonoBehaviour
             //********** Handle Jumping - SIMPLE *********//
 
             var jumpInput = Input.GetButtonDown("Jump");
+
+            if (jumpInput)
+            {
+                jumpCounter += 1;
+            }
 
             if (isOnGround  &&  theRB.velocity.y <= 0)
             {
@@ -234,17 +264,31 @@ public class PlayerController : MonoBehaviour
                 isDashing = false;
             }
 
-            // Double Jump Anim
-            if (jumpsLeft > 1 && !isOnGround)
+            // Double Jumping?
+            if(jumpCounter == 2)
             {
-                //theAnim.SetTrigger("doubleJump");
+                isDoubleJumping = true;
             }
 
-            //if (jumpInput)
-            //{
-            //    //jumpCounter += 1;
-            //}
+            if (isDoubleJumping)
+            {
+                theAnim.SetTrigger("doubleJump");
+            }
 
+            // reset jumpCounter
+            if (jumpCounter > maxJumps)
+            {
+                jumpCounter = 0;
+            }
+
+            //Player was JUST in the air but is now back on the ground
+            if(!wasOnGround && isOnGround)
+            {
+                jumpCounter = 0;
+            }
+
+
+            wasOnGround = isOnGround;
 
 
 
