@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossBattleGhost : MonoBehaviour
+public class BossBattle : MonoBehaviour
 
 {
 
     private CameraController theCam;
     public Transform camPosition;
     public float camMoveSpeed;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +25,10 @@ public class BossBattleGhost : MonoBehaviour
     void Update()
     {
         theCam.transform.position = Vector3.MoveTowards(theCam.transform.position, camPosition.position, camMoveSpeed * Time.deltaTime);
+    }
+
+    public void EndBattle()
+    {
+        gameObject.SetActive(false);
     }
 }

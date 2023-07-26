@@ -12,7 +12,7 @@ public class BulletController : MonoBehaviour
 
     public GameObject ImpactEffect;
 
-    public int damageAmount = 1;
+    public int damageAmount;
 
     private void Update()
     {
@@ -27,6 +27,12 @@ public class BulletController : MonoBehaviour
             {
                 other.GetComponent<EnemyHealthController>().DamageEnemy(damageAmount);
             }
+
+            if (other.tag == "Boss")
+            {
+                BossHealthController.instance.TakeDamage(damageAmount);
+            }
+
             Instantiate(ImpactEffect, transform.position, Quaternion.identity);
             AudioManager.instance.PlaySFX(10); // bullet impact
             Destroy (gameObject);
