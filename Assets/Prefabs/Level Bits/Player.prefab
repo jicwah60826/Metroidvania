@@ -1624,7 +1624,7 @@ Transform:
   - {fileID: 1290094813}
   - {fileID: 769349203}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7553627739553494368
 MonoBehaviour:
@@ -1645,38 +1645,24 @@ MonoBehaviour:
   shotToFire: {fileID: 1830410061, guid: ce6b1de282e477542af0902dfb632dd7, type: 3}
   shotPoint: {fileID: 7553627740639146603}
   jumpForce: 20
-  maxJumps: 2
-  jumpsLeft: 0
-  jumpCounter: 0
+  maxJumps: 8
   hangTime: 0.2
   smallJumpMult: 0.5
   hangCounter: 0
-  isJumping: 0
-  canDoubleJump: 0
   isDoubleJumping: 0
-  canTripleJump: 0
   groundPoint: {fileID: 7553627741040785667}
-  isOnGround: 0
-  wasOnGround: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1088
   frontCheck: {fileID: 769349203}
-  isTouchingWall: 0
   checkRadius: 0.1
   whatIsWall:
     serializedVersion: 2
     m_Bits: 64
-  dashSpeed: 20
-  dashTime: 0.8
-  dashHangAmt: 0.8
+  dashSpeed: 15
+  dashTime: 0.5
+  dashHangAmt: 1
   waitAfterDashing: 0.5
-  isDashing: 0
-  theSR: {fileID: 7553627740471041033}
-  afterImage: {fileID: 4624078935201887539, guid: 1f4d2bb89f932874f90f465749fd4968, type: 3}
-  afterImageLifetime: 0.2
-  timeBetweenAfterImages: 0.03
-  afterImageColor: {r: 0.14684942, g: 0.59936804, b: 0.9433962, a: 0.6862745}
   standing: {fileID: 7553627740471041034}
   ball: {fileID: 7553627739693199438}
   waitToBall: 0.5
@@ -1699,11 +1685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e0eac02ab94e438e78be1a8610b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDoubleJump: 0
-  canTripleJump: 0
-  canDash: 0
-  canBecomeBall: 0
-  canDropBomb: 0
+  canDoubleJump: 1
+  canTripleJump: 1
+  canDash: 1
+  canBecomeBall: 1
+  canDropBomb: 1
   dashSpeedMultiplier: 1.25
   dashTimeMuliplier: 1.25
 --- !u!114 &7553627739553494375

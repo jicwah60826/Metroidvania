@@ -39,9 +39,7 @@ public class PlayerController : MonoBehaviour
 
     [Title("Ground")]
     public Transform groundPoint;
-    [SerializeField]
     private bool isOnGround;
-    [SerializeField]
     private bool wasOnGround;
     public LayerMask whatIsGround;
 
@@ -50,7 +48,6 @@ public class PlayerController : MonoBehaviour
     [Title("Wall Detection")]
     [SerializeField]
     private Transform frontCheck;
-    [SerializeField]
     private bool isTouchingWall;
     [SerializeField]
     private float checkRadius;
@@ -66,17 +63,17 @@ public class PlayerController : MonoBehaviour
     private float dashCounter;
     public float waitAfterDashing;
     private float dashRechargeCounter;
-    [SerializeField]
     private bool isDashing;
 
-    public SpriteRenderer theSR, afterImage;
-    public float afterImageLifetime, timeBetweenAfterImages;
+    //public SpriteRenderer theSR, afterImage;
+    //public float afterImageLifetime, timeBetweenAfterImages;
     private float afterImageCounter;
-    public Color afterImageColor;
+    //public Color afterImageColor;
 
 
     [Title("Ball")]
-    public GameObject standing, ball;
+    public GameObject standing;
+    public GameObject ball;
     public float waitToBall;
     private float ballCounter;
     public Animator ballAnim;
