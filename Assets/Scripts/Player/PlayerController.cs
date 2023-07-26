@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,25 +12,22 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D theRB;
 
     public float moveSpeed;
-    public float jumpForce;
 
-    //Coyote time
+    [Title("Ammo")]
+    public int ammoCount;
+    public bool infinteAmmo;
+
+    [Title("Jumping")]
+    public float jumpForce;
+    public int maxJumps = 3;
+    [SerializeField]
+    private int jumpsLeft;
+    [SerializeField]
     public float hangTime = .2f;
+    [SerializeField]
     public float smallJumpMult = .5f;
     [SerializeField]
     private float hangCounter;
-
-
-    public Transform groundPoint;
-    [SerializeField]
-    private bool isOnGround;
-    public LayerMask whatIsGround;
-
-    public Animator theAnim;
-
-    public BulletController shotToFire;
-    public Transform shotPoint;
-
     [SerializeField]
     private bool isJumping;
     [SerializeField]
@@ -39,33 +37,47 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool canTripleJump;
 
+    [Title("Ground")]
+    public Transform groundPoint;
+    [SerializeField]
+    private bool isOnGround;
+    public LayerMask whatIsGround;
 
-    public float dashSpeed, dashTime;
+    public BulletController shotToFire;
+    public Transform shotPoint;
+
+    [Title("Dash")]
+    public float dashSpeed;
+    public float dashTime;
+    public float dashHangAmt;
     private float dashCounter;
+    public float waitAfterDashing;
+    private float dashRechargeCounter;
+    [SerializeField]
+    private bool isDashing;
 
     public SpriteRenderer theSR, afterImage;
     public float afterImageLifetime, timeBetweenAfterImages;
     private float afterImageCounter;
     public Color afterImageColor;
 
-    public float waitAfterDashing;
-    private float dashRechargeCounter;
 
+    [Title("Ball")]
     public GameObject standing, ball;
     public float waitToBall;
     private float ballCounter;
     public Animator ballAnim;
 
+    [Title("Bomb")]
+    public int bombCount;
     public Transform bombPoint;
     public GameObject bomb;
+    public bool infiniteBombs;
 
-    public int ammoCount, bombCount;
-    public bool infinteAmmo, infiniteBombs;
-
+    [Title("Misc")]
     private PlayerAbilityTracker playerAbilities;
-
     public bool canMove;
-    private bool isDashing;
+    public Animator theAnim;
 
     private void Awake()
     {
@@ -88,6 +100,10 @@ public class PlayerController : MonoBehaviour
         playerAbilities = GetComponent<PlayerAbilityTracker>();
 
         canMove = true;
+
+        // Initialize how many jumps we can do
+        jumpsLeft = maxJumps;
+        //jumpCounter = 0;
 
         // give some ammo and bombs to start if infinite
         if (infinteAmmo)
@@ -123,7 +139,7 @@ public class PlayerController : MonoBehaviour
             {
                 dashRechargeCounter -= Time.deltaTime;
                 isDashing = false;
-                //theAnim.SetBool("isDashing", false);
+                theAnim.SetBool("isDashing", false);
             }
             else
             {
@@ -141,7 +157,7 @@ public class PlayerController : MonoBehaviour
             {
                 dashCounter = dashCounter - Time.deltaTime;
 
-                theRB.velocity = new Vector2(dashSpeed * transform.localScale.x, theRB.velocity.y);
+                theRB.velocity = new Vector2(dashSpeed * transform.localScale.x, theRB.velocity.y * dashHangAmt);
 
                 afterImageCounter -= Time.deltaTime;
                 if (afterImageCounter <= 0)
@@ -176,71 +192,110 @@ public class PlayerController : MonoBehaviour
 
             if (isOnGround)
             {
+                // reset counters
                 hangCounter = hangTime;
+                //jumpCounter = 0;
             }
             else 
             {
                 hangCounter -= Time.deltaTime;
             }
 
-            // Handle Jumping
-            if (Input.GetButtonDown("Jump") && (hangCounter >0 || (canDoubleJump && playerAbilities.canDoubleJump) || (canTripleJump && playerAbilities.canTripleJump)))
+            //********** Handle Jumping - SIMPLE *********//
+
+            var jumpInput = Input.GetButtonDown("Jump");
+
+            if (isOnGround  &&  theRB.velocity.y <= 0)
             {
-                isJumping = true;
+                jumpsLeft = maxJumps;
+            }
 
-                if (isOnGround)
-                {
-                    canDoubleJump = true;
-                    canTripleJump = false;
-                    isDashing = false;
-                    AudioManager.instance.PlaySFX(12); // single jump sound
-                }
-
-
-                // allow double jump
-                if (!isOnGround && canDoubleJump)
-                {
-                    canTripleJump = true;
-                    canDoubleJump = false;
-                    isDashing = false;
-                    isDoubleJumping = true;
-                    theAnim.SetTrigger("doubleJump");
-                    AudioManager.instance.PlaySFX(13); // double jump sound
-                }
-
-                // allow triple jump
-                if (!isOnGround  && isDoubleJumping)
-                {
-                    canDoubleJump = false;
-                    isDoubleJumping = false;
-                    canTripleJump = false;
-                    isDashing = false;
-                    theAnim.SetTrigger("doubleJump");
-                    AudioManager.instance.PlaySFX(13); // triple jump sound
-                }
-                else
-                {
-                    canTripleJump = false;
-                    isDashing = false;
-                    isDoubleJumping = false;
-                }
-
+            if (jumpInput && jumpsLeft > 0)
+            {
                 theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                jumpsLeft -= 1;
+
+                AudioManager.instance.PlaySFX(13);
             }
 
             // Allow small jumps
-
             if (!isOnGround)
             {
-                
+
                 if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0)
                 {
                     theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * smallJumpMult);
                 }
             }
 
+            // Stop dashing if we jump
+            if(isDashing && jumpInput)
+            {
+                isDashing = false;
+            }
+
+            // Double Jump Anim
+            if (jumpsLeft > 1 && !isOnGround)
+            {
+                //theAnim.SetTrigger("doubleJump");
+            }
+
+            //if (jumpInput)
+            //{
+            //    //jumpCounter += 1;
+            //}
+
+
+
+
+            //********** Handle Jumping *********//
+
+            //if (Input.GetButtonDown("Jump") && (hangCounter >0 || (canDoubleJump && playerAbilities.canDoubleJump) || (canTripleJump && playerAbilities.canTripleJump)))
+            //{
+            //    isJumping = true;
+
+            //    if (isOnGround)
+            //    {
+            //        canDoubleJump = true;
+            //        canTripleJump = false;
+            //        isDashing = false;
+            //        AudioManager.instance.PlaySFX(12); // single jump sound
+            //    }
+
+
+            //    // allow double jump
+            //    if (!isOnGround && canDoubleJump)
+            //    {
+            //        canTripleJump = true;
+            //        canDoubleJump = false;
+            //        isDashing = false;
+            //        isDoubleJumping = true;
+            //        theAnim.SetTrigger("doubleJump");
+            //        AudioManager.instance.PlaySFX(13); // double jump sound
+            //    }
+
+            //    // allow triple jump
+            //    if (!isOnGround  && isDoubleJumping)
+            //    {
+            //        canDoubleJump = false;
+            //        isDoubleJumping = false;
+            //        canTripleJump = false;
+            //        isDashing = false;
+            //        theAnim.SetTrigger("doubleJump");
+            //        AudioManager.instance.PlaySFX(13); // triple jump sound
+            //    }
+            //    else
+            //    {
+            //        canTripleJump = false;
+            //        isDashing = false;
+            //        isDoubleJumping = false;
+            //    }
+
+            //    theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+            //}
+
             //shooting
-            if (Input.GetButtonDown("Fire1") && !isDoubleJumping)
+            if (Input.GetButtonDown("Fire1") && !isDoubleJumping && !isDashing)
             {
                 if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
                 {
@@ -326,15 +381,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ShowAfterImage()
-    {
-        SpriteRenderer image = Instantiate(afterImage, transform.position, transform.rotation);
-        image.sprite = theSR.sprite;
-        image.transform.localScale = transform.localScale;
-        image.color = afterImageColor;
+    //public void ShowAfterImage()
+    //{
+    //    SpriteRenderer image = Instantiate(afterImage, transform.position, transform.rotation);
+    //    image.sprite = theSR.sprite;
+    //    image.transform.localScale = transform.localScale;
+    //    image.color = afterImageColor;
 
-        Destroy(image.gameObject, afterImageLifetime);
+    //    Destroy(image.gameObject, afterImageLifetime);
 
-        afterImageCounter = timeBetweenAfterImages;
-    }
+    //    afterImageCounter = timeBetweenAfterImages;
+    //}
 }

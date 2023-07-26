@@ -11,7 +11,10 @@ public class AbilityUnlock : MonoBehaviour
 
     //public TMP_Text unlockText;
 
-    public bool unlockDoubleJump, unlockTripleJump, unlockDash, unlockBecomeBall, unlockDropBomb;
+    public bool unlockDoubleJump, unlockTripleJump, unlockDash, unlockBecomeBall, unlockDropBomb, dashTimeMult, dashSpeedMult;
+
+    public float dashTimeIncreaseAmt = 1.25f;
+    public float dashSpeedIncreaseAmt = 1.25f;
 
     private bool collected = false;
 
@@ -27,6 +30,7 @@ public class AbilityUnlock : MonoBehaviour
         {
             Debug.Log("Player detected in ability pickup");
             PlayerAbilityTracker player = other.GetComponentInParent<PlayerAbilityTracker>();
+            PlayerController playerController = player.GetComponentInParent<PlayerController>();
             AudioManager.instance.PlaySFX(11); // pickup gem sound
 
             collected = true;
@@ -40,12 +44,15 @@ public class AbilityUnlock : MonoBehaviour
             if (unlockDoubleJump)
             {
                 player.canDoubleJump = true;
+                playerController.maxJumps = 2;
                 Debug.Log("Double jump unlocked");
             }
 
             if (unlockTripleJump)
             {
                 player.canTripleJump = true;
+                playerController.maxJumps = 3;
+                Debug.Log("Double jump unlocked");
             }
 
             if (unlockDash)

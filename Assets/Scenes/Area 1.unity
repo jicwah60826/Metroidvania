@@ -806,8 +806,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7553627739553494368, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: maxJumps
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494368, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: ammoCount
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494368, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: infinteAmmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494368, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: infiniteBombs
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494368, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: smallJumpMult
@@ -856,6 +868,30 @@ PrefabInstance:
     - target: {fileID: 7553627739553494370, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: canDash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: canDropBomb
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: canBecomeBall
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: canDoubleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: canTripleJump
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494375, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: isInvincible
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494381, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: m_Name
