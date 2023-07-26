@@ -1640,8 +1640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theRB: {fileID: 7553627739553494369}
   moveSpeed: 8
-  ammoCount: 50
-  infinteAmmo: 1
+  ammoCount: 100
+  infinteAmmo: 0
   shotToFire: {fileID: 1830410061, guid: ce6b1de282e477542af0902dfb632dd7, type: 3}
   shotPoint: {fileID: 7553627740639146603}
   jumpForce: 20
@@ -1685,13 +1685,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e0eac02ab94e438e78be1a8610b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canDoubleJump: 1
-  canTripleJump: 1
-  canDash: 1
-  canBecomeBall: 1
-  canDropBomb: 1
-  dashSpeedMultiplier: 1.25
-  dashTimeMuliplier: 1.25
+  canDoubleJump: 0
+  canTripleJump: 0
+  canDash: 0
+  canBecomeBall: 0
+  canDropBomb: 0
+  dashSpeedMultiplier: 1
+  dashTimeMuliplier: 1
 --- !u!114 &7553627739553494375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1705,7 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeathEffect: {fileID: 4803876077173566648, guid: 32a612c5039605c4e9789f67e5ddf184, type: 3}
-  maxHealth: 50
+  maxHealth: 20
   isInvincible: 1
   invincibilityLength: 0.5
   flashLength: 0.025
