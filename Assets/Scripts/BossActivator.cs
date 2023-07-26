@@ -12,10 +12,8 @@ public class BossActivator : MonoBehaviour
         if(other.tag == "Player")
         {
             theBoss.SetActive(true);
+            gameObject.SetActive(false);
         }
-
-        gameObject.SetActive(false);
-
     }
 
 }

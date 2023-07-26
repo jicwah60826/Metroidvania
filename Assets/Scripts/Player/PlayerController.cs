@@ -21,25 +21,20 @@ public class PlayerController : MonoBehaviour
 
     [Title("Jumping")]
     public float jumpForce;
-    public int maxJumps = 3;
-    [SerializeField]
+    [HideInInspector]
+    public int maxJumps;
     private int jumpsLeft;
-    [SerializeField]
     private int jumpCounter;
+    [Title("Coyote Time")]
     [SerializeField]
     public float hangTime = .2f;
+    [Title("Jump Buffer")]
     [SerializeField]
     public float smallJumpMult = .5f;
     [SerializeField]
     private float hangCounter;
     [SerializeField]
-    private bool isJumping;
-    [SerializeField]
-    private bool canDoubleJump;
-    [SerializeField]
     private bool isDoubleJumping;
-    [SerializeField]
-    private bool canTripleJump;
 
 
     [Title("Ground")]
@@ -110,6 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     // Start is called before the first frame update
@@ -118,6 +114,20 @@ public class PlayerController : MonoBehaviour
         playerAbilities = GetComponent<PlayerAbilityTracker>();
 
         canMove = true;
+
+        // Determine what jump abiliy we have
+
+        // intialize
+        maxJumps = 1;
+
+        if (playerAbilities.canDoubleJump)
+        {
+            maxJumps = 2;
+        }
+        if (playerAbilities.canTripleJump)
+        {
+            maxJumps = 3;
+        }
 
         // Initialize how many jumps we can do
         jumpsLeft = maxJumps;
@@ -290,56 +300,8 @@ public class PlayerController : MonoBehaviour
 
             wasOnGround = isOnGround;
 
-
-
-            //********** Handle Jumping *********//
-
-            //if (Input.GetButtonDown("Jump") && (hangCounter >0 || (canDoubleJump && playerAbilities.canDoubleJump) || (canTripleJump && playerAbilities.canTripleJump)))
-            //{
-            //    isJumping = true;
-
-            //    if (isOnGround)
-            //    {
-            //        canDoubleJump = true;
-            //        canTripleJump = false;
-            //        isDashing = false;
-            //        AudioManager.instance.PlaySFX(12); // single jump sound
-            //    }
-
-
-            //    // allow double jump
-            //    if (!isOnGround && canDoubleJump)
-            //    {
-            //        canTripleJump = true;
-            //        canDoubleJump = false;
-            //        isDashing = false;
-            //        isDoubleJumping = true;
-            //        theAnim.SetTrigger("doubleJump");
-            //        AudioManager.instance.PlaySFX(13); // double jump sound
-            //    }
-
-            //    // allow triple jump
-            //    if (!isOnGround  && isDoubleJumping)
-            //    {
-            //        canDoubleJump = false;
-            //        isDoubleJumping = false;
-            //        canTripleJump = false;
-            //        isDashing = false;
-            //        theAnim.SetTrigger("doubleJump");
-            //        AudioManager.instance.PlaySFX(13); // triple jump sound
-            //    }
-            //    else
-            //    {
-            //        canTripleJump = false;
-            //        isDashing = false;
-            //        isDoubleJumping = false;
-            //    }
-
-            //    theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
-            //}
-
             //shooting
-            if (Input.GetButtonDown("Fire1") && !isDoubleJumping && !isDashing)
+            if (Input.GetButtonDown("Fire1") && !isDashing)
             {
                 if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
                 {
@@ -376,7 +338,7 @@ public class PlayerController : MonoBehaviour
                         ball.SetActive(true);
                         standing.SetActive(false);
 
-                        //AudioManager.instance.PlaySFX(6);
+                        AudioManager.instance.PlaySFX(6);
                     }
 
                 }
@@ -395,7 +357,7 @@ public class PlayerController : MonoBehaviour
                         ball.SetActive(false);
                         standing.SetActive(true);
 
-                        //AudioManager.instance.PlaySFX(10);
+                        AudioManager.instance.PlaySFX(6);
                     }
 
                 }
@@ -424,16 +386,4 @@ public class PlayerController : MonoBehaviour
             ballAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
         }
     }
-
-    //public void ShowAfterImage()
-    //{
-    //    SpriteRenderer image = Instantiate(afterImage, transform.position, transform.rotation);
-    //    image.sprite = theSR.sprite;
-    //    image.transform.localScale = transform.localScale;
-    //    image.color = afterImageColor;
-
-    //    Destroy(image.gameObject, afterImageLifetime);
-
-    //    afterImageCounter = timeBetweenAfterImages;
-    //}
 }
