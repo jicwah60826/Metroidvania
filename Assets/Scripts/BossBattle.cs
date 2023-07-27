@@ -28,18 +28,30 @@ public class BossBattle : MonoBehaviour
 
     public Transform theBoss;
 
+    public float timeBetweenShots1;
+
+    public float timeBetweenShots2;
+
+    private float shotCounter;
+
+    public GameObject bullet;
+
+    public Transform shotPoint;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
 
-        activeCounter = activeTime;
-
         theCam = FindObjectOfType(typeof(CameraController)) as CameraController;
 
         //disable the camera controller script on theCam so that we can move the camera as needed
         theCam.enabled = false;
+
+        activeCounter = activeTime;
+
+        shotCounter = timeBetweenShots1;
     }
 
     // Update is called once per frame
@@ -63,8 +75,17 @@ public class BossBattle : MonoBehaviour
                     fadeCounter += fadeOutTime;
                     anim.SetTrigger("vanish");
                 }
+
+                shotCounter -= Time.deltaTime;
+                if(shotCounter <= 0)
+                {
+                    shotCounter = timeBetweenShots1;
+
+                    Instantiate(bullet, shotPoint.position, Quaternion.identity);
+                }
             }
-            else if (fadeCounter > 0)
+
+             else if (fadeCounter > 0)
             {
                 // once fade counter reaches fadeOuttime - disable boss and re-initialize inactiveCounter
                 fadeCounter -= Time.deltaTime;
@@ -87,6 +108,8 @@ public class BossBattle : MonoBehaviour
 
                     // Re-acticate boss at new random spawn point
                     activeCounter = activeTime;
+
+                    shotCounter = timeBetweenShots1;
                 }
             }
         }
@@ -147,8 +170,17 @@ public class BossBattle : MonoBehaviour
         }
     }
 
+
     public void EndBattle()
     {
+
+        anim.SetTrigger("vanish");
+
+        // theCam.transform.position = Vector3.MoveTowards(PlayerHealthController.instance.transform.position, camPosition.position, camMoveSpeed * Time.deltaTime);
+
+        //re- enable the camera controller script on theCam to follow player again
+        theCam.enabled = true;
+
         gameObject.SetActive(false);
     }
 }

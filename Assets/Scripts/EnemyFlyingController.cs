@@ -38,10 +38,14 @@ public class EnemyFlyingController : MonoBehaviour
         {
             if (player.gameObject.activeSelf)
             {
+
+                // rotate enemy towards player
                 Vector3 direction = transform.position - player.position;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 Quaternion targetRot = Quaternion.AngleAxis(angle, Vector3.forward);
+                
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+                
                 transform.position += -transform.right * moveSpeed * Time.deltaTime;
             }
         }
