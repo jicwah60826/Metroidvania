@@ -1149,10 +1149,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7553627739553494368, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
-      propertyPath: smallJumpMult
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494370, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1737,6 +1733,10 @@ PrefabInstance:
       propertyPath: backGround
       value: 
       objectReference: {fileID: 1485918949}
+    - target: {fileID: 5307979308921749646, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 81.89
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

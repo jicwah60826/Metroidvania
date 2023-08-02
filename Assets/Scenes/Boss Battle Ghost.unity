@@ -7499,7 +7499,7 @@ MonoBehaviour:
   moveSpeed: 5
   anim: {fileID: 870901070}
   theBoss: {fileID: 870901067}
-  timeBetweenShots1: 1.5
+  timeBetweenShots1: 1
   timeBetweenShots2: 0.5
   bullet: {fileID: 201735597080094883, guid: 38c9b7facb9f3d34bac474dcd2b0c9ec, type: 3}
   shotPoint: {fileID: 555766151}
@@ -7516,7 +7516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHealthSlider: {fileID: 1789157813}
-  currentHealth: 5
+  currentHealth: 30
   theBoss: {fileID: 1259383391}
 --- !u!1 &1299277860
 GameObject:

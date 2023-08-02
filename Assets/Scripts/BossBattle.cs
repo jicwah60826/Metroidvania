@@ -137,6 +137,23 @@ public class BossBattle : MonoBehaviour
                         anim.SetTrigger("vanish");
                     }
 
+                    shotCounter -= Time.deltaTime;
+                    if (shotCounter <= 0)
+                    {
+
+                        if(BossHealthController.instance.currentHealth > threshold2)
+                        {
+                            shotCounter = timeBetweenShots1;
+                        }
+                        else
+                        {
+                            // below threshold 2
+                            shotCounter = timeBetweenShots2;
+                        }
+
+                        Instantiate(bullet, shotPoint.position, Quaternion.identity);
+                    }
+
                 }
                 else if (fadeCounter > 0)
                 {

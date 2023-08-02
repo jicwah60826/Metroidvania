@@ -1624,7 +1624,7 @@ Transform:
   - {fileID: 1290094813}
   - {fileID: 769349203}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7553627739553494368
 MonoBehaviour:
@@ -1640,14 +1640,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theRB: {fileID: 7553627739553494369}
   moveSpeed: 8
-  ammoCount: 100
+  ammoCount: 200
   infinteAmmo: 0
   shotToFire: {fileID: 1830410061, guid: ce6b1de282e477542af0902dfb632dd7, type: 3}
   shotPoint: {fileID: 7553627740639146603}
   jumpForce: 20
   maxJumps: 8
   hangTime: 0.2
-  smallJumpMult: 0.5
+  smallJumpMult: 0.2
   hangCounter: 0
   isDoubleJumping: 0
   groundPoint: {fileID: 7553627741040785667}
@@ -1670,7 +1670,7 @@ MonoBehaviour:
   bombCount: 25
   bombPoint: {fileID: 7553627739969439906}
   bomb: {fileID: 6221876883012708431, guid: 168c5842f25ed83428a3e76c4d9fc884, type: 3}
-  infiniteBombs: 1
+  infiniteBombs: 0
   canMove: 0
   theAnim: {fileID: 7553627740471041032}
 --- !u!114 &7553627739553494374
@@ -1705,8 +1705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeathEffect: {fileID: 4803876077173566648, guid: 32a612c5039605c4e9789f67e5ddf184, type: 3}
+  currentHealth: 0
   maxHealth: 20
-  isInvincible: 1
+  isInvincible: 0
   invincibilityLength: 0.5
   flashLength: 0.025
   playerSprites:

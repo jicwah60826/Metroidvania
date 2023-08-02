@@ -8,7 +8,7 @@ public class PlayerHealthController : MonoBehaviour
     public GameObject playerDeathEffect;
 
     //[HideInInspector]
-    private int currentHealth;
+    public int currentHealth;
     public int maxHealth;
     public bool isInvincible;
 
