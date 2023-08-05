@@ -653,6 +653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+      propertyPath: canDoubleJump
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494381, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: m_Name
       value: Player
@@ -59456,8 +59460,16 @@ PrefabInstance:
       value: 118.75845
       objectReference: {fileID: 0}
     - target: {fileID: 790233342984849992, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
+      propertyPath: m_Size.y
+      value: 19.984066
+      objectReference: {fileID: 0}
+    - target: {fileID: 790233342984849992, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
       propertyPath: m_Offset.x
       value: 1.3995209
+      objectReference: {fileID: 0}
+    - target: {fileID: 790233342984849992, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.8826046
       objectReference: {fileID: 0}
     - target: {fileID: 4504542327129090867, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
       propertyPath: midGround

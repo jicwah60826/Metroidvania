@@ -21,9 +21,12 @@ public class PlayerController : MonoBehaviour
 
     [Title("Jumping")]
     public float jumpForce;
-    [HideInInspector]
     public int maxJumps;
+    [ShowInInspector]
+    [ReadOnly]
     private int jumpsLeft;
+    [ShowInInspector]
+    [ReadOnly]
     private int jumpCounter;
     [Title("Coyote Time")]
     [SerializeField]
@@ -39,7 +42,11 @@ public class PlayerController : MonoBehaviour
 
     [Title("Ground")]
     public Transform groundPoint;
+    [ShowInInspector]
+    [ReadOnly]
     private bool isOnGround;
+    [ShowInInspector]
+    [ReadOnly]
     private bool wasOnGround;
     public LayerMask whatIsGround;
 
@@ -48,6 +55,8 @@ public class PlayerController : MonoBehaviour
     [Title("Wall Detection")]
     [SerializeField]
     private Transform frontCheck;
+    [ShowInInspector]
+    [ReadOnly]
     private bool isTouchingWall;
     [SerializeField]
     private float checkRadius;
@@ -96,7 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             instance = this;
             //don't destroy this object when we load scenes or re-load current
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -227,6 +236,7 @@ public class PlayerController : MonoBehaviour
                 // reset stuff
                 hangCounter = hangTime;
                 isDoubleJumping = false;
+                jumpsLeft = maxJumps;
             }
             else 
             {
@@ -272,9 +282,14 @@ public class PlayerController : MonoBehaviour
             }
 
             // Double Jumping?
-            if(jumpCounter == 2)
-            {
+
+
+            if(playerAbilities.canDoubleJump && jumpCounter == 2) { 
                 isDoubleJumping = true;
+            }
+            else
+            {
+                isDoubleJumping = false;
             }
 
             if (isDoubleJumping)
