@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             instance = this;
             //don't destroy this object when we load scenes or re-load current
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -235,8 +235,6 @@ public class PlayerController : MonoBehaviour
             {
                 // reset stuff
                 hangCounter = hangTime;
-                isDoubleJumping = false;
-                jumpsLeft = maxJumps;
             }
             else 
             {

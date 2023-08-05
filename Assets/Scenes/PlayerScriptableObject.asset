@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerScriptableObject
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  ammoCount: 0
-  currentAmmo: 0
-  bombCount: 0
+  jumpForce: 0
+  hangTime: 0
+  smallJumpMult: 0
