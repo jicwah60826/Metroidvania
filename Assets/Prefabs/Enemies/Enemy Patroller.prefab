@@ -120,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070465943734928658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: -15.44, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,11 +136,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7070465944262782529}
-  - component: {fileID: 7070465944262782528}
-  - component: {fileID: 7070465944262782531}
   - component: {fileID: 7070465944262782530}
   - component: {fileID: 7070465944262782557}
   - component: {fileID: 1221414417}
+  - component: {fileID: 7070465944262782528}
+  - component: {fileID: 7070465944262782531}
   m_Layer: 0
   m_Name: Enemy Patroller
   m_TagString: Enemy
@@ -167,6 +167,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7070465944262782530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070465944262782534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e81a544e66a714882db32e349d3327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPatrolling: 0
+  patrolPoints:
+  - {fileID: 7070465944909999447}
+  - {fileID: 7070465943734928685}
+  - {fileID: 7070465945320266830}
+  waitTimeHigh: 4.79
+  waitTimeLow: 0.77
+  moveSpeed: 5
+  jumpForce: 6
+  theRB: {fileID: 7070465944262782528}
+  anim: {fileID: 7070465945246730725}
+  frontCheck: {fileID: 1859979534}
+  checkRadius: 0.2
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &7070465944262782557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070465944262782534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0460f3e877115674d93c27cf832ee2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 5
+  deathEffect: {fileID: 918569219081259627, guid: b164059e807e4ec4d8f4e07ce788f355, type: 3}
+  itemDrops:
+  - {fileID: 2651395761228505888, guid: 02a6bbb2c8d1b0e40a73a49939241c74, type: 3}
+  - {fileID: 2109046737579981574, guid: a59c449521e5c7c479e5590146d4a791, type: 3}
+  - {fileID: 8759812382486770031, guid: fdf02f2bfe27a9e4792324ac15776149, type: 3}
+  - {fileID: 8024847632331019361, guid: 614efeb04f5bf614aa06f08b576a2291, type: 3}
+  - {fileID: 2611950961432358239, guid: 67c62281a7dbb644c880b11c8568915d, type: 3}
+  xHigh: -1
+  xLow: 1
+  yHigh: -0.5
+  yLow: 0.5
+--- !u!114 &1221414417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070465944262782534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae4952c1985ea746a0289386de84425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  destroyOnDamage: 0
+  destroyEffect: {fileID: 0}
 --- !u!50 &7070465944262782528
 Rigidbody2D:
   serializedVersion: 4
@@ -229,63 +296,6 @@ CircleCollider2D:
   m_Offset: {x: -0.022495747, y: -0.14317393}
   serializedVersion: 2
   m_Radius: 0.8273355
---- !u!114 &7070465944262782530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070465944262782534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44e81a544e66a714882db32e349d3327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 7070465944909999447}
-  - {fileID: 7070465943734928685}
-  - {fileID: 7070465945320266830}
-  waitTimeHigh: 4.79
-  waitTimeLow: 0.77
-  moveSpeed: 5
-  jumpForce: 6
-  theRB: {fileID: 7070465944262782528}
-  anim: {fileID: 7070465945246730725}
-  frontCheck: {fileID: 1859979534}
-  isTouchingWall: 0
-  checkRadius: 0.2
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &7070465944262782557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070465944262782534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0460f3e877115674d93c27cf832ee2d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalHealth: 5
-  deathEffect: {fileID: 918569219081259627, guid: b164059e807e4ec4d8f4e07ce788f355, type: 3}
---- !u!114 &1221414417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070465944262782534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eae4952c1985ea746a0289386de84425, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
-  destroyOnDamage: 0
-  destroyEffect: {fileID: 0}
 --- !u!1 &7070465944909999444
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070465944909999444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.24, y: -0.5, z: 0}
+  m_LocalPosition: {x: 34.29, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -446,7 +456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070465945320266831}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.91, y: -0.61, z: 0}
+  m_LocalPosition: {x: 13.13, y: 2.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
