@@ -12,12 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Area 2.unity
     guid: 94446a9a927fccc4cb4bdc92b57a0e4f
   - enabled: 1
-    path: Assets/Scenes/Boss Battle Ghost.unity
+    path: Assets/Scenes/Area 3 Boss Battle Ghost.unity
     guid: 7c2ec10053b77cb4491dcd8f975ca600
   - enabled: 1
-    path: Assets/Scenes/TestArena1.unity
-    guid: 57e93cb7653bf3548b7714fca13a5d6f
-  - enabled: 1
-    path: Assets/Scenes/TestArena2.unity
-    guid: 8c5121625880eae488703c20501b4223
+    path: Assets/Scenes/Area 4.unity
+    guid: f435eef784a9d7943943f62ddba40df9
   m_configObjects: {}

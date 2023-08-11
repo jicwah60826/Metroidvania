@@ -4,6 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Unity.Collections;
 
 public class EnemyPatroller : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EnemyPatroller : MonoBehaviour
 
     private int currentPoint;
 
-    public float waitTimeHigh, waitTimeLow, moveSpeed;
+    public float waitTimeHigh, waitTimeLow, moveSpeed, chaseSpeed;
 
     private float waitAtPointTime, waitCounter;
 
@@ -24,7 +25,15 @@ public class EnemyPatroller : MonoBehaviour
 
     public Animator anim;
 
-    
+    public float rangeToStartChase;
+
+    [SerializeField]
+    private bool isChasing;
+
+    private Transform player;
+
+
+
 
     private bool playerInRange;
 
@@ -43,6 +52,9 @@ public class EnemyPatroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //get player
+        player = PlayerHealthController.instance.transform;
 
         //randomly generate a start waiting time
         waitAtPointTime = Random.Range(waitTimeLow, waitTimeHigh);
@@ -131,6 +143,18 @@ public class EnemyPatroller : MonoBehaviour
             {
                 //make enemy jump / crawl wall until over
                 theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+            }
+        }
+
+
+        if (!isChasing)
+        {
+            if (Vector3.Distance(transform.position, player.position) < rangeToStartChase)
+            {
+                isChasing = true;
+                Debug.Log("isChasing!");
+                //theAnim.SetBool("isChasing", isChasing);
+                transform.position = Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
             }
         }
     }

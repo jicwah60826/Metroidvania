@@ -13,13 +13,13 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed;
 
-    [Title("Ammo")]
+    //[Title("Ammo")]
     public int ammoCount;
     public bool infinteAmmo;
     public BulletController shotToFire;
     public Transform shotPoint;
 
-    [Title("Jumping")]
+    //[Title("Jumping")]
     public float jumpForce;
     public int maxJumps;
     [ShowInInspector]
@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
     [ShowInInspector]
     [ReadOnly]
     private int jumpCounter;
-    [Title("Coyote Time")]
+    //[Title("Coyote Time")]
     [SerializeField]
     public float hangTime = .2f;
-    [Title("Jump Buffer")]
+    //[Title("Jump Buffer")]
     [SerializeField]
     public float smallJumpMult = .5f;
     [SerializeField]
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     private bool isDoubleJumping;
 
 
-    [Title("Ground")]
+    //[Title("Ground")]
     public Transform groundPoint;
     [ShowInInspector]
     [ReadOnly]
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    [Title("Wall Detection")]
+    //[Title("Wall Detection")]
     [SerializeField]
     private Transform frontCheck;
     [ShowInInspector]
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    [Title("Dash")]
+    //[Title("Dash")]
     public float dashSpeed;
     public float dashTime;
     public float dashHangAmt;
@@ -80,20 +80,20 @@ public class PlayerController : MonoBehaviour
     //public Color afterImageColor;
 
 
-    [Title("Ball")]
+    //[Title("Ball")]
     public GameObject standing;
     public GameObject ball;
     public float waitToBall;
     private float ballCounter;
     public Animator ballAnim;
 
-    [Title("Bomb")]
+    //[Title("Bomb")]
     public int bombCount;
     public Transform bombPoint;
     public GameObject bomb;
     public bool infiniteBombs;
 
-    [Title("Misc")]
+    //[Title("Misc")]
     private PlayerAbilityTracker playerAbilities;
     public bool canMove;
     public Animator theAnim;

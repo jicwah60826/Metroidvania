@@ -35,6 +35,7 @@ public class BossBattle : MonoBehaviour
     private float shotCounter;
 
     public GameObject bullet;
+    public GameObject winObjects;
 
     public Transform shotPoint;
 
@@ -52,6 +53,8 @@ public class BossBattle : MonoBehaviour
         activeCounter = activeTime;
 
         shotCounter = timeBetweenShots1;
+
+        winObjects.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -197,7 +200,8 @@ public class BossBattle : MonoBehaviour
 
         //re- enable the camera controller script on theCam to follow player again
         theCam.enabled = true;
-
+        winObjects.gameObject.SetActive(true);
+        winObjects.transform.SetParent(null);
         gameObject.SetActive(false);
     }
 }
