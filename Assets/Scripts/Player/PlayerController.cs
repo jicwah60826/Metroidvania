@@ -74,11 +74,7 @@ public class PlayerController : MonoBehaviour
     private float dashRechargeCounter;
     private bool isDashing;
 
-    //public SpriteRenderer theSR, afterImage;
-    //public float afterImageLifetime, timeBetweenAfterImages;
     private float afterImageCounter;
-    //public Color afterImageColor;
-
 
     //[Title("Ball")]
     public GameObject standing;
