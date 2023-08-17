@@ -22,17 +22,22 @@ public class PlayerHealthController : MonoBehaviour
 
     private void Awake()
     {
-        // only load a new instance of this if once doesn't already exist in the scene yet
-        if (instance == null)
-        {
-            instance = this;
-            //don't destroy this object when we load scenes or re-load current
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        instance = this;
+
+
+        //// only load a new instance of this if once doesn't already exist in the scene yet
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    //don't destroy this object when we load scenes or re-load current
+
+
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     // Start is called before the first frame update

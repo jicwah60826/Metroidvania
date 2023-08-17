@@ -96,17 +96,22 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        // only load a new instance of this if once doesn't already exist in the scene yet
-        if (instance == null)
-        {
-            instance = this;
-            //don't destroy this object when we load scenes or re-load current
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+
+        instance = this;
+
+
+        //// only load a new instance of this if once doesn't already exist in the scene yet
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    //don't destroy this object when we load scenes or re-load current
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
 
     }
 
@@ -273,6 +278,7 @@ public class PlayerController : MonoBehaviour
             if(isDashing && jumpInput)
             {
                 isDashing = false;
+                //reset gravity scale
             }
 
             // Double Jumping?
