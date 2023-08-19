@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-
     public static UIController instance;
 
     public TMP_Text ammoText;
@@ -17,13 +17,16 @@ public class UIController : MonoBehaviour
     public Image fadeScreen;
 
     public float fadeSpeed = 2f;
-    private bool fadingToBlack, fadingFromBlack;
+    private bool fadingToBlack,
+        fadingFromBlack;
+
+    public string mainMenuScene;
+
+    public GameObject pauseScreen;
 
     private void Awake()
     {
-
         instance = this;
-
 
         //// only load a new instance of this if once doesn't already exist in the scene yet
         //if (instance == null)
@@ -52,7 +55,12 @@ public class UIController : MonoBehaviour
     {
         if (fadingToBlack)
         {
-            fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 1f, fadeSpeed * Time.deltaTime));
+            fadeScreen.color = new Color(
+                fadeScreen.color.r,
+                fadeScreen.color.g,
+                fadeScreen.color.b,
+                Mathf.MoveTowards(fadeScreen.color.a, 1f, fadeSpeed * Time.deltaTime)
+            );
 
             if (fadeScreen.color.a == 1f)
             {
@@ -61,12 +69,22 @@ public class UIController : MonoBehaviour
         }
         else if (fadingFromBlack)
         {
-            fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 0f, fadeSpeed * Time.deltaTime));
+            fadeScreen.color = new Color(
+                fadeScreen.color.r,
+                fadeScreen.color.g,
+                fadeScreen.color.b,
+                Mathf.MoveTowards(fadeScreen.color.a, 0f, fadeSpeed * Time.deltaTime)
+            );
 
             if (fadeScreen.color.a == 0f)
             {
                 fadingFromBlack = false;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseUnPause();
         }
     }
 
@@ -96,5 +114,55 @@ public class UIController : MonoBehaviour
     {
         fadingFromBlack = true;
         fadingToBlack = false;
+    }
+
+    public void PauseUnPause()
+    {
+        if (!pauseScreen.activeSelf)
+        {
+            pauseScreen.SetActive(true);
+
+            Time.timeScale = 0f;
+
+            // Hide / Lock cursor movement in game window
+            Cursor.lockState = CursorLockMode.Locked;
+
+            //Set Cursor to not be visible
+            Cursor.visible = false;
+        }
+        else
+        {
+            pauseScreen.SetActive(false);
+
+            Time.timeScale = 1f;
+
+            // Show / un-lock cursor movement in game window
+            Cursor.lockState = CursorLockMode.None;
+
+            //Set Cursor to be visible
+            Cursor.visible = true;
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        // set time scale back to 1 so that when we start a new game or continue, we're not frozen from a previous pause
+        Time.timeScale = 1f;
+
+
+        // clean the scene and destroy all the game objects that are don't destroy on load.
+
+        Destroy(PlayerHealthController.instance.gameObject);
+        PlayerHealthController.instance = null;
+
+        Destroy(RespawnController.instance.gameObject);
+        RespawnController.instance = null;
+
+        instance = null;
+        Destroy(gameObject);
+
+        //take us to the main menu
+
+        SceneManager.LoadScene(mainMenuScene);
     }
 }

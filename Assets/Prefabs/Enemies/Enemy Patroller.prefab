@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861621726}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Wall Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859979534}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Front Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7070465943465161298}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Patrol Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7070465943734928685}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: pPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 1221414417}
   - component: {fileID: 7070465944262782528}
   - component: {fileID: 7070465944262782531}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Enemy Patroller
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -187,9 +187,12 @@ MonoBehaviour:
   waitTimeHigh: 4.79
   waitTimeLow: 0.77
   moveSpeed: 5
+  chaseSpeed: 0
   jumpForce: 6
   theRB: {fileID: 7070465944262782528}
   anim: {fileID: 7070465945246730725}
+  rangeToStartChase: 0
+  isChasing: 0
   frontCheck: {fileID: 1859979534}
   checkRadius: 0.2
   whatIsWall:
@@ -305,7 +308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7070465944909999447}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: pPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -338,7 +341,7 @@ GameObject:
   - component: {fileID: 7070465945246730731}
   - component: {fileID: 7070465945246730724}
   - component: {fileID: 7070465945246730725}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Sprite
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -441,7 +444,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7070465945320266830}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: pPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}

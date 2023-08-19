@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4353047450056801440}
   - component: {fileID: 4353047450056801441}
   - component: {fileID: 4353047450056801443}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Enemy Flyer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -113,6 +113,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHealth: 10
   deathEffect: {fileID: 50212062853065313, guid: 42b39c5987485174e950f51a80d2cd77, type: 3}
+  itemDrops: []
+  xHigh: 0
+  xLow: 0
+  yHigh: 0
+  yLow: 0
 --- !u!114 &4353047450056801441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +160,7 @@ GameObject:
   - component: {fileID: 4353047451109669251}
   - component: {fileID: 4353047451109669250}
   - component: {fileID: 4353047451109669261}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

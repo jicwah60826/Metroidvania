@@ -37,6 +37,11 @@ public class BulletController : MonoBehaviour
             AudioManager.instance.PlaySFX(10); // bullet impact
             Destroy (gameObject);
         }
+
+        if (!GetComponent<Renderer>().isVisible)
+        {
+            OnBecameInvisible();
+        }
     }
 
     private void OnBecameInvisible()
