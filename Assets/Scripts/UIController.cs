@@ -124,11 +124,11 @@ public class UIController : MonoBehaviour
 
             Time.timeScale = 0f;
 
-            // Hide / Lock cursor movement in game window
-            Cursor.lockState = CursorLockMode.Locked;
+            //// Hide / Lock cursor movement in game window
+            //Cursor.lockState = CursorLockMode.Locked;
 
-            //Set Cursor to not be visible
-            Cursor.visible = false;
+            ////Set Cursor to not be visible
+            //Cursor.visible = false;
         }
         else
         {
@@ -136,11 +136,11 @@ public class UIController : MonoBehaviour
 
             Time.timeScale = 1f;
 
-            // Show / un-lock cursor movement in game window
-            Cursor.lockState = CursorLockMode.None;
+            //// Show / un-lock cursor movement in game window
+            //Cursor.lockState = CursorLockMode.None;
 
-            //Set Cursor to be visible
-            Cursor.visible = true;
+            ////Set Cursor to be visible
+            //Cursor.visible = true;
         }
     }
 
