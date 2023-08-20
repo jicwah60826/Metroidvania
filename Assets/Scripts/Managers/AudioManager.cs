@@ -79,6 +79,13 @@ public class AudioManager : MonoBehaviour
         soundEffects[sfxNumber].Play(); // play the sound. allows playing sound in fast repetition
     }
 
+    public void PlaySFXAdjusted(int sfxNumberToAdjust, float lowPitch, float hiPitch, float volume)
+    {
+        soundEffects[sfxNumberToAdjust].pitch = Random.Range(lowPitch, hiPitch);
+        soundEffects[sfxNumberToAdjust].volume = volume;
+        PlaySFX(sfxNumberToAdjust);
+    }
+
     public void StopSFX(int sfxNumber)
     {
         soundEffects[sfxNumber].Stop();

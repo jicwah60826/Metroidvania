@@ -49,6 +49,8 @@ public class ItemDrop : MonoBehaviour
    
             collected = true;
 
+            AudioManager.instance.PlaySFXAdjusted(0, .75f, 1.25f, .3f); // Pickup Sound Adjusted
+
             // deactivate the sprite
             theSR.enabled = false;
 

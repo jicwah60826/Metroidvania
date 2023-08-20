@@ -186,6 +186,9 @@ public class PlayerController : MonoBehaviour
                     dashCounter = dashTime;
 
                     isDashing = true;
+
+                    //AudioManager.instance.PlaySFXAdjusted(3); // Dash Sound Adjusted
+
                     AudioManager.instance.PlaySFX(3); // Dash Sound
                 }
             }
@@ -261,6 +264,9 @@ public class PlayerController : MonoBehaviour
                 theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
                 jumpsLeft -= 1;
 
+
+                //AudioManager.instance.PlaySFXAdjusted(13); // Jump Sound Adjusted
+
                 AudioManager.instance.PlaySFX(13);
             }
 
@@ -318,7 +324,12 @@ public class PlayerController : MonoBehaviour
                 if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
                 {
                     Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDirection = new Vector2(transform.localScale.x, 0f);
-                    AudioManager.instance.PlaySFX(8);
+                    //AudioManager.instance.PlaySFX(8);
+
+
+
+                    AudioManager.instance.PlaySFXAdjusted(8, .75f, 1.25f, 1f); // Fire Sound Adjusted
+
                     if (!infinteAmmo)
                     {
                         ammoCount--;
