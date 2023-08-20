@@ -567,12 +567,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c448d9a5387634d8e14709260a1f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 1137803719}
   anim: {fileID: 1740244796}
   distanceToOpen: 7.5
   exitPoint: {fileID: 1353056398}
   movePlayerSpeed: 20
-  fadeWaitTime: 1
-  levelToLoad: Area 3 Boss Battle Ghost
+  levelToLoad: 3
 --- !u!61 &751491755
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1069,6 +1069,118 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
+--- !u!114 &1137803719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1986914060874625679, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+  m_PrefabInstance: {fileID: 1341861184}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a02855481be124498bc08f3301565c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1341861184
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1986914060847237798, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_Name
+      value: Fader Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986914060847237818, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b9343cb07eb3614391a856c8f44f3fb, type: 3}
 --- !u!1 &1353056397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,6 +1583,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 790233342233115008, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
+      propertyPath: fader
+      value: 
+      objectReference: {fileID: 1137803719}
+    - target: {fileID: 790233342233115008, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
+      propertyPath: levelToLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 790233342233115008, guid: 3b47c22d2832f8948a150bfc60d8f671, type: 3}
       propertyPath: fadeWaitTime
       value: 1

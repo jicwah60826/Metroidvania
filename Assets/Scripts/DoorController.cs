@@ -6,20 +6,28 @@ using UnityEngine.SceneManagement;
 public class DoorController : MonoBehaviour
 {
 
+    public Fader fader;
+
     [SerializeField]
     private Animator anim;
+
     [SerializeField]
     private float distanceToOpen;
+    
     private float distanceToDoor;
     private bool doorOpen;
+    
     [SerializeField]
     private Transform exitPoint;
+    
     [SerializeField]
     private float movePlayerSpeed;
+    
+    //[SerializeField]
+    //private float fadeWaitTime;
+    
     [SerializeField]
-    private float fadeWaitTime;
-    [SerializeField]
-    private string levelToLoad;
+    private int levelToLoad;
 
     private PlayerController thePlayer;
     private bool playerExiting;
@@ -68,6 +76,9 @@ public class DoorController : MonoBehaviour
                 
                 // disable collider on door trigger
                 GetComponent<BoxCollider2D>().enabled = false;
+
+                //set level var
+                fader.SetLevel(levelToLoad);
 
                 // start corroutine
                 //StartCoroutine(useDoorCo());
