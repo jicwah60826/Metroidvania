@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
 
     public string levelToLoad;
 
+    private void Start()
+    {
+        AudioManager.instance.PlayMainMenuMusic();
+    }
+
 
     public void StartGame()
     {

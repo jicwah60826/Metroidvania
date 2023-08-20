@@ -6,43 +6,71 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    public AudioSource bgMusic;
+    public AudioSource levelMusic;
+    public AudioSource mainMenuMusic;
+    public AudioSource bossBattleMusic;
 
     public AudioSource[] soundEffects;
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
 
-        instance = this;
-
-
-        //// only load a new instance of this if once doesn't already exist in the scene yet
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //    //don't destroy this object when we load scenes or re-load current
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        bgMusic.Play();
-    }
 
-    // Update is called once per frame
-    void Update()
+
+    public void PlayMainMenuMusic()
     {
+
+        if(!mainMenuMusic.isPlaying)
+        {
+            mainMenuMusic.Play();
+
+            //Stop other music
+            levelMusic.Stop();
+            bossBattleMusic.Stop();
+        }
+
+    }
+    
+    public void PlayLevelMusic()
+    {
+
+        //Start level music only if it's not already playing
+
+        if(!levelMusic.isPlaying)
+        {
+            levelMusic.Play();
+
+            //Stop other music
+            mainMenuMusic.Stop();
+            bossBattleMusic.Stop();
+        }
+
+
+    }
+    
+    public void PlayBossBattleMusic()
+    {
+        bossBattleMusic.Play();
+
+        //Stop other music
+        mainMenuMusic.Stop();
+        levelMusic.Stop();
     }
 
     public void StopBGM()
     {
-        bgMusic.Stop();
+        levelMusic.Stop();
     }
 
     public void PlaySFX(int sfxNumber)

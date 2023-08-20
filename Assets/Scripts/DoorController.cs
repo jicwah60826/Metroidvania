@@ -33,6 +33,7 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // check player distance to door
         distanceToDoor = Vector3.Distance(transform.position, thePlayer.transform.position);
 
         if (distanceToDoor <= distanceToOpen)
@@ -44,6 +45,7 @@ public class DoorController : MonoBehaviour
             doorOpen = false;
         }
 
+        // do door opening animation
         anim.SetBool("doorOpen", doorOpen);
 
         if (playerExiting)
@@ -59,30 +61,37 @@ public class DoorController : MonoBehaviour
         {
             if (!playerExiting)
             {
+                playerExiting = true;
+                
+                // disable player movement
                 thePlayer.canMove = false;
+                
+                // disable collider on door trigger
+                GetComponent<BoxCollider2D>().enabled = false;
+
                 // start corroutine
-                StartCoroutine(useDoorCo());
+                //StartCoroutine(useDoorCo());
             }
         }
     }
 
-    IEnumerator useDoorCo()
-    {
-        playerExiting = true;
+    //IEnumerator useDoorCo()
+    //{
+    //    playerExiting = true;
 
-        thePlayer.theAnim.enabled = false;
+    //    thePlayer.theAnim.enabled = false;
 
-        UIController.instance.StartFadeToBlack();
+    //    UIController.instance.StartFadeToBlack();
 
-        yield return new WaitForSeconds(fadeWaitTime);
+    //    yield return new WaitForSeconds(fadeWaitTime);
 
-        RespawnController.instance.SetSpawn(exitPoint.position);
+    //    RespawnController.instance.SetSpawn(exitPoint.position);
 
-        thePlayer.canMove = true;
-        thePlayer.theAnim.enabled = true;
+    //    thePlayer.canMove = true;
+    //    thePlayer.theAnim.enabled = true;
 
-        UIController.instance.StartFadeFromBlack();
+    //    UIController.instance.StartFadeFromBlack();
 
-        SceneManager.LoadScene(levelToLoad);
-    }
+    //    SceneManager.LoadScene(levelToLoad);
+    //}
 }
