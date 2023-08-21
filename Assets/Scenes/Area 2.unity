@@ -1050,15 +1050,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: canDropBomb
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: canBecomeBall
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494374, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: canDoubleJump
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7553627739553494381, guid: 9d0d00bee4079ec419a759ab67746616, type: 3}
       propertyPath: m_Name
