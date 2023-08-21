@@ -94,61 +94,45 @@ public class PlayerController : MonoBehaviour
     public bool canMove;
     public Animator theAnim;
 
+    public int currentLevel;
+
     private void Awake()
     {
 
-
         instance = this;
-
-
-        //// only load a new instance of this if once doesn't already exist in the scene yet
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //    //don't destroy this object when we load scenes or re-load current
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
+        // Get Data from Save System
+
+        SaveData theSave = SaveSystem.instance.activeSave;
+
+        currentLevel = theSave.level;
+        ammoCount = theSave.ammoCount;
+        bombCount = theSave.bombCount;
+        moveSpeed = theSave.moveSpeed;
+        jumpForce = theSave.jumpForce;
+        maxJumps = theSave.maxJumps;
+        hangTime = theSave.hangTime;
+        smallJumpMult = theSave.smallJumpMult;
+        dashSpeed = theSave.dashSpeed;
+        dashTime = theSave.dashTime;
+        waitAfterDashing = theSave.waitAfterDashing;
+        dashHangAmt = theSave.dashHangAmt;
+        waitToBall = theSave.waitToBall;
+        infinteAmmo = theSave.infiniteAmmo;
+
+
         playerAbilities = GetComponent<PlayerAbilityTracker>();
 
         canMove = true;
 
-        // Determine what jump abiliy we have
-
-        // intialize
-        maxJumps = 1;
-
-        if (playerAbilities.canDoubleJump)
-        {
-            maxJumps = 2;
-        }
-        if (playerAbilities.canTripleJump)
-        {
-            maxJumps = 3;
-        }
-
         // Initialize how many jumps we can do
         jumpsLeft = maxJumps;
         jumpCounter = 0;
-
-        // give some ammo and bombs to start if infinite
-        if (infinteAmmo)
-        {
-            ammoCount = 10;
-        }
-        if (infiniteBombs)
-        {
-            bombCount = 10;
-        }
 
         UIController.instance.UpdateAmmo(ammoCount);
         UIController.instance.UpdateBombs(bombCount);
@@ -324,10 +308,6 @@ public class PlayerController : MonoBehaviour
                 if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
                 {
                     Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDirection = new Vector2(transform.localScale.x, 0f);
-                    //AudioManager.instance.PlaySFX(8);
-
-
-
                     AudioManager.instance.PlaySFXAdjusted(8, .75f, 1.25f, 1f); // Fire Sound Adjusted
 
                     if (!infinteAmmo)

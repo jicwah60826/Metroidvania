@@ -23,8 +23,6 @@ public class DoorController : MonoBehaviour
     [SerializeField]
     private float movePlayerSpeed;
     
-    //[SerializeField]
-    //private float fadeWaitTime;
     
     [SerializeField]
     private int levelToLoad;
@@ -70,39 +68,47 @@ public class DoorController : MonoBehaviour
             if (!playerExiting)
             {
                 playerExiting = true;
-                
+
                 // disable player movement
                 thePlayer.canMove = false;
-                
+
                 // disable collider on door trigger
                 GetComponent<BoxCollider2D>().enabled = false;
 
                 //set level var
                 fader.SetLevel(levelToLoad);
 
-                // start corroutine
-                //StartCoroutine(useDoorCo());
-            }
+
+                UpdateSaveSystem();
+
+                //Save Data to Disk
+                SaveSystem.instance.Save();
+
+             }
         }
     }
 
-    //IEnumerator useDoorCo()
-    //{
-    //    playerExiting = true;
+    void UpdateSaveSystem()
+    {
+        if (playerExiting)
+        {
 
-    //    thePlayer.theAnim.enabled = false;
+            //Store all player controller data so we can inject into save system
+            PlayerController player = PlayerController.instance;
 
-    //    UIController.instance.StartFadeToBlack();
+            //Store all player health data so we can inject into save system
+            PlayerHealthController playerHealth = PlayerHealthController.instance;
 
-    //    yield return new WaitForSeconds(fadeWaitTime);
+            // Update Save system data
+            SaveSystem.instance.activeSave.level = levelToLoad;
+            SaveSystem.instance.activeSave.playerSpawnX = exitPoint.transform.position.x;
+            SaveSystem.instance.activeSave.playerSpawnY = exitPoint.transform.position.y;
+            SaveSystem.instance.activeSave.ammoCount = player.ammoCount;
+            SaveSystem.instance.activeSave.bombCount = player.bombCount;
+            SaveSystem.instance.activeSave.currentHealth = playerHealth.currentHealth;
+            SaveSystem.instance.activeSave.maxHealth = playerHealth.maxHealth;
 
-    //    RespawnController.instance.SetSpawn(exitPoint.position);
 
-    //    thePlayer.canMove = true;
-    //    thePlayer.theAnim.enabled = true;
-
-    //    UIController.instance.StartFadeFromBlack();
-
-    //    SceneManager.LoadScene(levelToLoad);
-    //}
+        }
+    }
 }
