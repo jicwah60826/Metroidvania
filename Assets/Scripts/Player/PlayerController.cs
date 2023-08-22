@@ -179,43 +179,70 @@ public class PlayerController : MonoBehaviour
 
             if (dashCounter > 0)
             {
-                dashCounter = dashCounter - Time.deltaTime;
-
-                theRB.velocity = new Vector2(dashSpeed * transform.localScale.x, theRB.velocity.y * dashHangAmt);
-
-                afterImageCounter -= Time.deltaTime;
-                if (afterImageCounter <= 0)
-                {
-                    isDashing = true;
-                }
-
-                if (isTouchingWall)
-                {
-                    isDashing = false;
-                }
-
-                dashRechargeCounter = waitAfterDashing;
+                Dash();
 
             }
             else
             {
+                Move();
+            }
 
-                //move sideways
-                theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
+            GroundCheck();
 
-                //handle direction change
-                if (theRB.velocity.x < 0)
-                {
-                    transform.localScale = new Vector3(-1f, 1f, 1f);
-                }
-                else if (theRB.velocity.x > 0)
-                {
-                    transform.localScale = Vector3.one;
-                }
+            Jump();
 
+            Shooting();
+
+            Ball();
+        }
+        else
+        {
+            // if canMove = false, we cannot move
+            theRB.velocity = Vector2.zero;
+        }
+
+        PlayerAnimations();
+
+        void Move()
+        {
+            //move sideways
+            theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
+
+            //handle direction change
+            if (theRB.velocity.x < 0)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (theRB.velocity.x > 0)
+            {
+                transform.localScale = Vector3.one;
+            }
+
+            isDashing = false;
+        }
+
+        void Dash()
+        {
+            dashCounter = dashCounter - Time.deltaTime;
+
+            theRB.velocity = new Vector2(dashSpeed * transform.localScale.x, theRB.velocity.y * dashHangAmt);
+
+            afterImageCounter -= Time.deltaTime;
+            if (afterImageCounter <= 0)
+            {
+                isDashing = true;
+            }
+
+            if (isTouchingWall)
+            {
                 isDashing = false;
             }
 
+            dashRechargeCounter = waitAfterDashing;
+        }
+
+        void GroundCheck()
+        {
             //checking if on the ground
             isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
@@ -224,112 +251,29 @@ public class PlayerController : MonoBehaviour
                 // reset stuff
                 hangCounter = hangTime;
             }
-            else 
+            else
             {
                 hangCounter -= Time.deltaTime;
             }
+        }
 
-            //********** Handle Jumping - SIMPLE *********//
-
-            var jumpInput = Input.GetButtonDown("Jump");
-
-            if (jumpInput)
+        void PlayerAnimations()
+        {
+            if (standing.activeSelf)
             {
-                jumpCounter += 1;
+                theAnim.SetBool("isOnGround", isOnGround);
+                theAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
+                theAnim.SetBool("isDashing", isDashing);
             }
 
-            if (isOnGround  &&  theRB.velocity.y <= 0)
+            if (ball.activeSelf)
             {
-                jumpsLeft = maxJumps;
+                ballAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
             }
+        }
 
-            if (jumpInput && jumpsLeft > 0)
-            {
-                theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
-                jumpsLeft -= 1;
-
-
-                //AudioManager.instance.PlaySFXAdjusted(13); // Jump Sound Adjusted
-
-                AudioManager.instance.PlaySFX(13);
-            }
-
-            // Allow small jumps
-            if (!isOnGround)
-            {
-
-                if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0)
-                {
-                    theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * smallJumpMult);
-                }
-            }
-
-            // Stop dashing if we jump
-            if(isDashing && jumpInput)
-            {
-                isDashing = false;
-                //reset gravity scale
-            }
-
-            // Double Jumping?
-
-
-            if(playerAbilities.canDoubleJump && jumpCounter == 2) { 
-                isDoubleJumping = true;
-            }
-            else
-            {
-                isDoubleJumping = false;
-            }
-
-            if (isDoubleJumping)
-            {
-                theAnim.SetTrigger("doubleJump");
-            }
-
-            // reset jumpCounter
-            if (jumpCounter > maxJumps)
-            {
-                jumpCounter = 0;
-            }
-
-            //Player was JUST in the air but is now back on the ground
-            if(!wasOnGround && isOnGround)
-            {
-                jumpCounter = 0;
-            }
-
-
-            wasOnGround = isOnGround;
-
-            //shooting
-            if (Input.GetButtonDown("Fire1") && !isDashing)
-            {
-                if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
-                {
-                    Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDirection = new Vector2(transform.localScale.x, 0f);
-                    AudioManager.instance.PlaySFXAdjusted(8, .75f, 1.25f, 1f); // Fire Sound Adjusted
-
-                    if (!infinteAmmo)
-                    {
-                        ammoCount--;
-                        UIController.instance.UpdateAmmo(ammoCount);
-                    }
-
-                    theAnim.SetTrigger("shotFired");
-                }
-                else if (ball.activeSelf && playerAbilities.canDropBomb && (bombCount > 0 || infiniteBombs))
-                {
-                    Instantiate(bomb, bombPoint.position, bombPoint.rotation);
-
-                    if (!infiniteBombs)
-                    {
-                        bombCount--;
-                        UIController.instance.UpdateBombs(bombCount);
-                    }
-                }
-            }
-
+        void Ball()
+        {
             //ball mode
             if (!ball.activeSelf)
             {
@@ -370,23 +314,113 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else
+
+        void Shooting()
         {
-            // if canMove = false, we cannot move
-            theRB.velocity = Vector2.zero;
+            //shooting
+            if (Input.GetButtonDown("Fire1") && !isDashing)
+            {
+                if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
+                {
+                    Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDirection = new Vector2(transform.localScale.x, 0f);
+                    AudioManager.instance.PlaySFXAdjusted(8, .75f, 1.25f, 1f); // Fire Sound Adjusted
+
+                    if (!infinteAmmo)
+                    {
+                        ammoCount--;
+                        UIController.instance.UpdateAmmo(ammoCount);
+                    }
+
+                    theAnim.SetTrigger("shotFired");
+                }
+                else if (ball.activeSelf && playerAbilities.canDropBomb && (bombCount > 0 || infiniteBombs))
+                {
+                    Instantiate(bomb, bombPoint.position, bombPoint.rotation);
+
+                    if (!infiniteBombs)
+                    {
+                        bombCount--;
+                        UIController.instance.UpdateBombs(bombCount);
+                    }
+                }
+            }
         }
 
-
-        if (standing.activeSelf)
+        void Jump()
         {
-            theAnim.SetBool("isOnGround", isOnGround);
-            theAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
-            theAnim.SetBool("isDashing", isDashing);
-        }
+            //********** Handle Jumping - SIMPLE *********//
 
-        if (ball.activeSelf)
-        {
-            ballAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
+            var jumpInput = Input.GetButtonDown("Jump");
+
+            if (jumpInput)
+            {
+                jumpCounter += 1;
+            }
+
+            if (isOnGround && theRB.velocity.y <= 0)
+            {
+                jumpsLeft = maxJumps;
+            }
+
+            if (jumpInput && jumpsLeft > 0)
+            {
+                theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                jumpsLeft -= 1;
+
+
+                //AudioManager.instance.PlaySFXAdjusted(13); // Jump Sound Adjusted
+
+                AudioManager.instance.PlaySFX(13);
+            }
+
+            // Allow small jumps
+            if (!isOnGround)
+            {
+
+                if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0)
+                {
+                    theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * smallJumpMult);
+                }
+            }
+
+            // Stop dashing if we jump
+            if (isDashing && jumpInput)
+            {
+                isDashing = false;
+                //reset gravity scale
+            }
+
+            // Double Jumping?
+
+
+            if (playerAbilities.canDoubleJump && jumpCounter == 2)
+            {
+                isDoubleJumping = true;
+            }
+            else
+            {
+                isDoubleJumping = false;
+            }
+
+            if (isDoubleJumping)
+            {
+                theAnim.SetTrigger("doubleJump");
+            }
+
+            // reset jumpCounter
+            if (jumpCounter > maxJumps)
+            {
+                jumpCounter = 0;
+            }
+
+            //Player was JUST in the air but is now back on the ground
+            if (!wasOnGround && isOnGround)
+            {
+                jumpCounter = 0;
+            }
+
+
+            wasOnGround = isOnGround;
         }
     }
 }

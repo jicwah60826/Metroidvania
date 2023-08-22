@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using System.IO;
 using System.Xml.Serialization;
 
@@ -14,14 +13,18 @@ public class SaveSystem : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        SetupInstance();
+    }
+
+    public void SetupInstance()
+    {
+        if (instance == null)
         {
             instance = this;
 
             DontDestroyOnLoad(gameObject);
 
             // Load fdrom saved data on disk
-
             Load();
         }
         else
@@ -56,7 +59,7 @@ public class SaveSystem : MonoBehaviour
         if (File.Exists(dataPath + "/Metroidvania.save"))
         {
 
-            var serializer = new XmlSerializer(typeof(SaveDataExample));
+            var serializer = new XmlSerializer(typeof(SaveData));
 
             var stream = new FileStream(dataPath + "/Metroidvania.save", FileMode.Open);
 
