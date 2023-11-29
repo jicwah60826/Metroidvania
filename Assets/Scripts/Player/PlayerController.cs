@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     public int currentLevel;
 
-    private bool isFacingRight = true;
+    //private bool isFacingRight = true;
 
     private void Awake()
     {
@@ -205,35 +205,35 @@ public class PlayerController : MonoBehaviour
 
         
 
-        void TurnCheck()
-        {
-            if(theRB.velocity.x > 0 && !isFacingRight)
-            {
-                Turn();
-            }
-            else if(theRB.velocity.x < 0 && isFacingRight)
-            {
-                Turn();
-            }
-        }
+        //void TurnCheck()
+        //{
+        //    if(theRB.velocity.x > 0 && !isFacingRight)
+        //    {
+        //        Turn();
+        //    }
+        //    else if(theRB.velocity.x < 0 && isFacingRight)
+        //    {
+        //        Turn();
+        //    }
+        //}
 
-        void Turn()
-        {
-            // Do Stuff
+        //void Turn()
+        //{
+        //    // Do Stuff
 
-            if (isFacingRight)
-            {
-                Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
-                transform.rotation = Quaternion.Euler(rotator);
-                isFacingRight = !isFacingRight;
-            }
-            else
-            {
-                Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
-                transform.rotation = Quaternion.Euler(rotator);
-                isFacingRight = !isFacingRight;
-            }
-        }
+        //    if (isFacingRight)
+        //    {
+        //        Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+        //        transform.rotation = Quaternion.Euler(rotator);
+        //        isFacingRight = !isFacingRight;
+        //    }
+        //    else
+        //    {
+        //        Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
+        //        transform.rotation = Quaternion.Euler(rotator);
+        //        isFacingRight = !isFacingRight;
+        //    }
+        //}
 
         PlayerAnimations();
 
@@ -245,17 +245,17 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
 
 
-            TurnCheck();
+            //TurnCheck();
 
-            ////handle direction change
-            //if (theRB.velocity.x < 0)
-            //{
-            //    transform.localScale = new Vector3(-1f, 1f, 1f);
-            //}
-            //else if (theRB.velocity.x > 0)
-            //{
-            //    transform.localScale = Vector3.one;
-            //}
+            //handle direction change
+            if (theRB.velocity.x < 0)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (theRB.velocity.x > 0)
+            {
+                transform.localScale = Vector3.one;
+            }
 
             isDashing = false;
         }
