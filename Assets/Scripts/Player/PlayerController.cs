@@ -94,47 +94,61 @@ public class PlayerController : MonoBehaviour
     public bool canMove;
     public Animator theAnim;
 
-    public int currentLevel;
-
-    //private bool isFacingRight = true;
-
     private void Awake()
     {
 
+
         instance = this;
+
+
+        //// only load a new instance of this if once doesn't already exist in the scene yet
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    //don't destroy this object when we load scenes or re-load current
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
-        // Get Data from Save System
-
-        SaveData theSave = SaveSystem.instance.activeSave;
-
-        currentLevel = theSave.level;
-        ammoCount = theSave.ammoCount;
-        bombCount = theSave.bombCount;
-        moveSpeed = theSave.moveSpeed;
-        jumpForce = theSave.jumpForce;
-        maxJumps = theSave.maxJumps;
-        hangTime = theSave.hangTime;
-        smallJumpMult = theSave.smallJumpMult;
-        dashSpeed = theSave.dashSpeed;
-        dashTime = theSave.dashTime;
-        waitAfterDashing = theSave.waitAfterDashing;
-        dashHangAmt = theSave.dashHangAmt;
-        waitToBall = theSave.waitToBall;
-        infinteAmmo = theSave.infiniteAmmo;
-
-
         playerAbilities = GetComponent<PlayerAbilityTracker>();
 
         canMove = true;
 
+        // Determine what jump abiliy we have
+
+        // intialize
+        maxJumps = 1;
+
+        if (playerAbilities.canDoubleJump)
+        {
+            maxJumps = 2;
+        }
+        if (playerAbilities.canTripleJump)
+        {
+            maxJumps = 3;
+        }
+
         // Initialize how many jumps we can do
         jumpsLeft = maxJumps;
         jumpCounter = 0;
+
+        // give some ammo and bombs to start if infinite
+        if (infinteAmmo)
+        {
+            ammoCount = 10;
+        }
+        if (infiniteBombs)
+        {
+            bombCount = 10;
+        }
 
         UIController.instance.UpdateAmmo(ammoCount);
         UIController.instance.UpdateBombs(bombCount);
@@ -181,107 +195,43 @@ public class PlayerController : MonoBehaviour
 
             if (dashCounter > 0)
             {
-                Dash();
+                dashCounter = dashCounter - Time.deltaTime;
+
+                theRB.velocity = new Vector2(dashSpeed * transform.localScale.x, theRB.velocity.y * dashHangAmt);
+
+                afterImageCounter -= Time.deltaTime;
+                if (afterImageCounter <= 0)
+                {
+                    isDashing = true;
+                }
+
+                if (isTouchingWall)
+                {
+                    isDashing = false;
+                }
+
+                dashRechargeCounter = waitAfterDashing;
 
             }
             else
             {
-                Move();
-            }
 
-            GroundCheck();
+                //move sideways
+                theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
 
-            Jump();
+                //handle direction change
+                if (theRB.velocity.x < 0)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                }
+                else if (theRB.velocity.x > 0)
+                {
+                    transform.localScale = Vector3.one;
+                }
 
-            Shooting();
-
-            Ball();
-        }
-        else
-        {
-            // if canMove = false, we cannot move
-            theRB.velocity = Vector2.zero;
-        }
-
-        
-
-        //void TurnCheck()
-        //{
-        //    if(theRB.velocity.x > 0 && !isFacingRight)
-        //    {
-        //        Turn();
-        //    }
-        //    else if(theRB.velocity.x < 0 && isFacingRight)
-        //    {
-        //        Turn();
-        //    }
-        //}
-
-        //void Turn()
-        //{
-        //    // Do Stuff
-
-        //    if (isFacingRight)
-        //    {
-        //        Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
-        //        transform.rotation = Quaternion.Euler(rotator);
-        //        isFacingRight = !isFacingRight;
-        //    }
-        //    else
-        //    {
-        //        Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
-        //        transform.rotation = Quaternion.Euler(rotator);
-        //        isFacingRight = !isFacingRight;
-        //    }
-        //}
-
-        PlayerAnimations();
-
-
-
-        void Move()
-        {
-            //move sideways
-            theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
-
-
-            //TurnCheck();
-
-            //handle direction change
-            if (theRB.velocity.x < 0)
-            {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
-            else if (theRB.velocity.x > 0)
-            {
-                transform.localScale = Vector3.one;
-            }
-
-            isDashing = false;
-        }
-
-        void Dash()
-        {
-            dashCounter = dashCounter - Time.deltaTime;
-
-            theRB.velocity = new Vector2(dashSpeed * transform.localScale.x, theRB.velocity.y * dashHangAmt);
-
-            afterImageCounter -= Time.deltaTime;
-            if (afterImageCounter <= 0)
-            {
-                isDashing = true;
-            }
-
-            if (isTouchingWall)
-            {
                 isDashing = false;
             }
 
-            dashRechargeCounter = waitAfterDashing;
-        }
-
-        void GroundCheck()
-        {
             //checking if on the ground
             isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatIsGround);
 
@@ -290,29 +240,116 @@ public class PlayerController : MonoBehaviour
                 // reset stuff
                 hangCounter = hangTime;
             }
-            else
+            else 
             {
                 hangCounter -= Time.deltaTime;
             }
-        }
 
-        void PlayerAnimations()
-        {
-            if (standing.activeSelf)
+            //********** Handle Jumping - SIMPLE *********//
+
+            var jumpInput = Input.GetButtonDown("Jump");
+
+            if (jumpInput)
             {
-                theAnim.SetBool("isOnGround", isOnGround);
-                theAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
-                theAnim.SetBool("isDashing", isDashing);
+                jumpCounter += 1;
             }
 
-            if (ball.activeSelf)
+            if (isOnGround  &&  theRB.velocity.y <= 0)
             {
-                ballAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
+                jumpsLeft = maxJumps;
             }
-        }
 
-        void Ball()
-        {
+            if (jumpInput && jumpsLeft > 0)
+            {
+                theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                jumpsLeft -= 1;
+
+
+                //AudioManager.instance.PlaySFXAdjusted(13); // Jump Sound Adjusted
+
+                AudioManager.instance.PlaySFX(13);
+            }
+
+            // Allow small jumps
+            if (!isOnGround)
+            {
+
+                if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0)
+                {
+                    theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * smallJumpMult);
+                }
+            }
+
+            // Stop dashing if we jump
+            if(isDashing && jumpInput)
+            {
+                isDashing = false;
+                //reset gravity scale
+            }
+
+            // Double Jumping?
+
+
+            if(playerAbilities.canDoubleJump && jumpCounter == 2) { 
+                isDoubleJumping = true;
+            }
+            else
+            {
+                isDoubleJumping = false;
+            }
+
+            if (isDoubleJumping)
+            {
+                theAnim.SetTrigger("doubleJump");
+            }
+
+            // reset jumpCounter
+            if (jumpCounter > maxJumps)
+            {
+                jumpCounter = 0;
+            }
+
+            //Player was JUST in the air but is now back on the ground
+            if(!wasOnGround && isOnGround)
+            {
+                jumpCounter = 0;
+            }
+
+
+            wasOnGround = isOnGround;
+
+            //shooting
+            if (Input.GetButtonDown("Fire1") && !isDashing)
+            {
+                if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
+                {
+                    Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDirection = new Vector2(transform.localScale.x, 0f);
+                    //AudioManager.instance.PlaySFX(8);
+
+
+
+                    AudioManager.instance.PlaySFXAdjusted(8, .75f, 1.25f, 1f); // Fire Sound Adjusted
+
+                    if (!infinteAmmo)
+                    {
+                        ammoCount--;
+                        UIController.instance.UpdateAmmo(ammoCount);
+                    }
+
+                    theAnim.SetTrigger("shotFired");
+                }
+                else if (ball.activeSelf && playerAbilities.canDropBomb && (bombCount > 0 || infiniteBombs))
+                {
+                    Instantiate(bomb, bombPoint.position, bombPoint.rotation);
+
+                    if (!infiniteBombs)
+                    {
+                        bombCount--;
+                        UIController.instance.UpdateBombs(bombCount);
+                    }
+                }
+            }
+
             //ball mode
             if (!ball.activeSelf)
             {
@@ -353,113 +390,23 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-        void Shooting()
+        else
         {
-            //shooting
-            if (Input.GetButtonDown("Fire1") && !isDashing)
-            {
-                if (standing.activeSelf && (ammoCount > 0 || infinteAmmo))
-                {
-                    Instantiate(shotToFire, shotPoint.position, shotPoint.rotation).moveDirection = new Vector2(transform.localScale.x, 0f);
-                    AudioManager.instance.PlaySFXAdjusted(8, .75f, 1.25f, 1f); // Fire Sound Adjusted
-
-                    if (!infinteAmmo)
-                    {
-                        ammoCount--;
-                        UIController.instance.UpdateAmmo(ammoCount);
-                    }
-
-                    theAnim.SetTrigger("shotFired");
-                }
-                else if (ball.activeSelf && playerAbilities.canDropBomb && (bombCount > 0 || infiniteBombs))
-                {
-                    Instantiate(bomb, bombPoint.position, bombPoint.rotation);
-
-                    if (!infiniteBombs)
-                    {
-                        bombCount--;
-                        UIController.instance.UpdateBombs(bombCount);
-                    }
-                }
-            }
+            // if canMove = false, we cannot move
+            theRB.velocity = Vector2.zero;
         }
 
-        void Jump()
+
+        if (standing.activeSelf)
         {
-            //********** Handle Jumping - SIMPLE *********//
+            theAnim.SetBool("isOnGround", isOnGround);
+            theAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
+            theAnim.SetBool("isDashing", isDashing);
+        }
 
-            var jumpInput = Input.GetButtonDown("Jump");
-
-            if (jumpInput)
-            {
-                jumpCounter += 1;
-            }
-
-            if (isOnGround && theRB.velocity.y <= 0)
-            {
-                jumpsLeft = maxJumps;
-            }
-
-            if (jumpInput && jumpsLeft > 0)
-            {
-                theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
-                jumpsLeft -= 1;
-
-
-                //AudioManager.instance.PlaySFXAdjusted(13); // Jump Sound Adjusted
-
-                AudioManager.instance.PlaySFX(13);
-            }
-
-            // Allow small jumps
-            if (!isOnGround)
-            {
-
-                if (Input.GetButtonUp("Jump") && theRB.velocity.y > 0)
-                {
-                    theRB.velocity = new Vector2(theRB.velocity.x, theRB.velocity.y * smallJumpMult);
-                }
-            }
-
-            // Stop dashing if we jump
-            if (isDashing && jumpInput)
-            {
-                isDashing = false;
-                //reset gravity scale
-            }
-
-            // Double Jumping?
-
-
-            if (playerAbilities.canDoubleJump && jumpCounter == 2)
-            {
-                isDoubleJumping = true;
-            }
-            else
-            {
-                isDoubleJumping = false;
-            }
-
-            if (isDoubleJumping)
-            {
-                theAnim.SetTrigger("doubleJump");
-            }
-
-            // reset jumpCounter
-            if (jumpCounter > maxJumps)
-            {
-                jumpCounter = 0;
-            }
-
-            //Player was JUST in the air but is now back on the ground
-            if (!wasOnGround && isOnGround)
-            {
-                jumpCounter = 0;
-            }
-
-
-            wasOnGround = isOnGround;
+        if (ball.activeSelf)
+        {
+            ballAnim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
         }
     }
 }

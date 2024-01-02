@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static SaveDataExample;
 
 public class PlayerHealthController : MonoBehaviour
 {
@@ -23,20 +22,28 @@ public class PlayerHealthController : MonoBehaviour
 
     private void Awake()
     {
+
         instance = this;
+
+
+        //// only load a new instance of this if once doesn't already exist in the scene yet
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    //don't destroy this object when we load scenes or re-load current
+
+
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        // Get Data from Save System
-        SaveData theSave = SaveSystem.instance.activeSave;
-
-        currentHealth = theSave.currentHealth;
-        maxHealth = theSave.maxHealth;
-
-        //Update UIController on Start
-        UIController.instance.UpdateHealth(currentHealth, maxHealth);
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame

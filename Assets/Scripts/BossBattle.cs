@@ -204,7 +204,6 @@ public class BossBattle : MonoBehaviour
         theCam.enabled = true;
         winObjects.gameObject.SetActive(true);
         winObjects.transform.SetParent(null);
-        AudioManager.instance.PlayLevelMusic();
         gameObject.SetActive(false);
     }
 }
