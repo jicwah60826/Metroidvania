@@ -43601,12 +43601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c448d9a5387634d8e14709260a1f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 0}
   anim: {fileID: 790233342998116513}
   distanceToOpen: 7.5
   exitPoint: {fileID: 790233343435345024}
   movePlayerSpeed: 20
-  fadeWaitTime: 1
-  levelToLoad: TestArena2
+  levelToLoad: 0
 --- !u!4 &790233342655164964
 Transform:
   m_ObjectHideFlags: 0
@@ -44202,6 +44202,7 @@ MonoBehaviour:
   infiniteBombs: 0
   canMove: 0
   theAnim: {fileID: 7553627740420076443}
+  currentLevel: 0
 --- !u!114 &7553627739468143348
 MonoBehaviour:
   m_ObjectHideFlags: 0
