@@ -19,17 +19,17 @@ public class RespawnController : MonoBehaviour
         instance = this;
 
 
-        //// only load a new instance of this if once doesn't already exist in the scene yet
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //    //don't destroy this object when we load scenes or re-load current
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        // only load a new instance of this if once doesn't already exist in the scene yet
+        if (instance == null)
+        {
+            instance = this;
+            //don't destroy this object when we load scenes or re-load current
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -60,6 +60,7 @@ public class RespawnController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         thePlayer.transform.position = respawnPoint;
+        Debug.Log("Player Transform set to respawnPoint via SetSpawn method");
         thePlayer.SetActive(true);
         PlayerHealthController.instance.FillHealth();
     }

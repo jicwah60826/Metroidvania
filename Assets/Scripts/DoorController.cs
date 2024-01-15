@@ -82,6 +82,8 @@ public class DoorController : MonoBehaviour
 
                 // start corroutine
                 StartCoroutine(useDoorCo());
+                Debug.Log("StartCoroutine useDoorCo");
+
             }
         }
     }
@@ -97,6 +99,7 @@ public class DoorController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         RespawnController.instance.SetSpawn(exitPoint.position);
+       Debug.Log("SetSpawn called from RespawnController within useDoorCo");
 
         thePlayer.canMove = true;
         thePlayer.theAnim.enabled = true;
