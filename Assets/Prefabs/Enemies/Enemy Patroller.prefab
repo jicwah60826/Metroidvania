@@ -197,7 +197,7 @@ MonoBehaviour:
   checkRadius: 0.2
   whatIsWall:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
 --- !u!114 &7070465944262782557
 MonoBehaviour:
   m_ObjectHideFlags: 0

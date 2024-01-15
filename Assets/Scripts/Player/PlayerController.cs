@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
 
 
-        //// only load a new instance of this if once doesn't already exist in the scene yet
+        //// only load a new instance of this if one doesn't already exist in the scene yet
         //if (instance == null)
         //{
         //    instance = this;

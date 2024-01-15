@@ -42249,12 +42249,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c448d9a5387634d8e14709260a1f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 0}
   anim: {fileID: 1015470104}
   distanceToOpen: 7.5
   exitPoint: {fileID: 1967578606}
   movePlayerSpeed: 20
-  fadeWaitTime: 1
-  levelToLoad: TestArena1
+  levelToLoad: 0
 --- !u!61 &1746126050
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -42688,12 +42688,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c448d9a5387634d8e14709260a1f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 0}
   anim: {fileID: 790233342998116513}
   distanceToOpen: 7.5
   exitPoint: {fileID: 790233343435345024}
   movePlayerSpeed: 20
-  fadeWaitTime: 1
-  levelToLoad: TestArena1
+  levelToLoad: 0
 --- !u!4 &790233342655164964
 Transform:
   m_ObjectHideFlags: 0

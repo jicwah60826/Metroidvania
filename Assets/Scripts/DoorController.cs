@@ -81,28 +81,28 @@ public class DoorController : MonoBehaviour
                 fader.SetLevel(levelToLoad);
 
                 // start corroutine
-                //StartCoroutine(useDoorCo());
+                StartCoroutine(useDoorCo());
             }
         }
     }
 
-    //IEnumerator useDoorCo()
-    //{
-    //    playerExiting = true;
+    IEnumerator useDoorCo()
+    {
+        playerExiting = true;
 
-    //    thePlayer.theAnim.enabled = false;
+        thePlayer.theAnim.enabled = false;
 
-    //    UIController.instance.StartFadeToBlack();
+        UIController.instance.StartFadeToBlack();
 
-    //    yield return new WaitForSeconds(fadeWaitTime);
+        yield return new WaitForSeconds(1.5f);
 
-    //    RespawnController.instance.SetSpawn(exitPoint.position);
+        RespawnController.instance.SetSpawn(exitPoint.position);
 
-    //    thePlayer.canMove = true;
-    //    thePlayer.theAnim.enabled = true;
+        thePlayer.canMove = true;
+        thePlayer.theAnim.enabled = true;
 
-    //    UIController.instance.StartFadeFromBlack();
+        UIController.instance.StartFadeFromBlack();
 
-    //    SceneManager.LoadScene(levelToLoad);
-    //}
+        SceneManager.LoadScene(levelToLoad);
+    }
 }
